@@ -251,7 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 1
+  m_UiScaleMode: 2
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -319,7 +319,7 @@ GameObject:
   - component: {fileID: 444439188}
   - component: {fileID: 444439187}
   m_Layer: 0
-  m_Name: NPC w/ Dialogue
+  m_Name: Test NPC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -338,73 +338,119 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    character: {fileID: 0}
-    conversationNames:
-    - Starting Conversation
-    - Mad Conversation
-    - Happy Conversation
-    showConversation: 010101
-    animationSelections:
-    - animationSelections: 000000000000000000000000
-    - animationSelections: 000000000000000000000000
-    - animationSelections: 00000000000000000000000000000000
-    triggerSelections:
-    - None
-    - Mad
-    - Happy
-    triggerActivations:
-    - None
-    - None
-    - None
-    customNameToggle: 0
-    characterName: NPC w/ Dialogue
-    useAudioFile: 0
-    audioFileName: 
-    conversationList:
-    - sentences:
-      - This is a test sentence...
-      - It seems to be working. How does that make you feel?
-    - sentences:
-      - Oh... well that's alright I guess.
-      - Welp, that's all I've got. Goodbye.
-    - sentences:
-      - Great!
-      - Now we can keep building new conversations.
-      - That's all for this demo though. Bye!
-    responseToggles: 010000
-    numberOfResponses: 020000000000000000000000
-    responseList:
-    - responses:
-      - I'm mad!
-      - I'm happy!
-    - responses:
-      - Response
-    - responses: []
-    responseActivationsList:
-    - activations:
-      - Mad
-      - Happy
-    - activations:
-      - None
-    - activations:
-      - None
-    hasAudio: 000000
-    customAudioList:
-    - toggle: 0000
-    - toggle: 0000
-    - toggle: 000000
-    audioClipsList:
-    - clips:
-      - {fileID: 0}
-      - {fileID: 0}
-    - clips:
-      - {fileID: 0}
-      - {fileID: 0}
-    - clips:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-    triggerNextConversation: 010000
+    customNameToggle: 1
+    characterName: Tester
+    conversations:
+    - showConversation: 1
+      conversationName: Starting Conversation
+      requiredTrigger: None
+      hasAudio: 1
+      statements:
+      - animationSelection: 0
+        hasCustomAudio: 0
+        audioProperties:
+          name: Nothing
+          clip: {fileID: 8300000, guid: 4211bbeae3f99b84a880e31238fea2bd, type: 3}
+          volume: 1
+          loop: 0
+          source: {fileID: 0}
+        statementText: This is a test conversation.
+      - animationSelection: 1
+        hasCustomAudio: 0
+        audioProperties:
+          name: Nothing
+          clip: {fileID: 8300000, guid: bfe2bd26e12e9344885f2943fdda5720, type: 3}
+          volume: 1
+          loop: 0
+          source: {fileID: 0}
+        statementText: If you are seeing this, it means the conversation is working!
+      - animationSelection: 2
+        hasCustomAudio: 0
+        audioProperties:
+          name: Nothing
+          clip: {fileID: 8300000, guid: 2f3688fa66c5cc045869dc70f63407b5, type: 3}
+          volume: 1
+          loop: 0
+          source: {fileID: 0}
+        statementText: How does that make you feel?
+      closingAnimation: 0
+      setTrigger: None
+      hasResponse: 1
+      responses:
+      - setTrigger: Happy
+        responseText: It makes me happy!
+      - setTrigger: Mad
+        responseText: It makes me mad!
+      triggerNextConversation: 1
+    - showConversation: 0
+      conversationName: Happy Conversation
+      requiredTrigger: Happy
+      hasAudio: 1
+      statements:
+      - animationSelection: 0
+        hasCustomAudio: 0
+        audioProperties:
+          name: 
+          clip: {fileID: 8300000, guid: 5b2c334be64947d488f93c049545e5bd, type: 3}
+          volume: 1
+          loop: 0
+          source: {fileID: 0}
+        statementText: I'm glad it makes you happy!
+      - animationSelection: 0
+        hasCustomAudio: 0
+        audioProperties:
+          name: Nothing
+          clip: {fileID: 8300000, guid: 067afc44190570b46b05c74f026551b0, type: 3}
+          volume: 1
+          loop: 0
+          source: {fileID: 0}
+        statementText: Hopefully we can make more dialogue now.
+      - animationSelection: 0
+        hasCustomAudio: 0
+        audioProperties:
+          name: Nothing
+          clip: {fileID: 8300000, guid: 13b5c938cd7be6142b41cb6a9105b12c, type: 3}
+          volume: 1
+          loop: 0
+          source: {fileID: 0}
+        statementText: That's the end of this demo!
+      closingAnimation: 0
+      setTrigger: None
+      hasResponse: 0
+      responses:
+      - setTrigger: None
+        responseText: Response
+      triggerNextConversation: 0
+    - showConversation: 0
+      conversationName: Mad Conversation
+      requiredTrigger: Mad
+      hasAudio: 0
+      statements:
+      - animationSelection: 0
+        hasCustomAudio: 0
+        audioProperties:
+          name: 
+          clip: {fileID: 0}
+          volume: 0
+          loop: 0
+          source: {fileID: 0}
+        statementText: Oh... well that's ok I guess.
+      - animationSelection: 0
+        hasCustomAudio: 0
+        audioProperties:
+          name: Nothing
+          clip: {fileID: 0}
+          volume: 1
+          loop: 0
+          source: {fileID: 0}
+        statementText: That's the end of this demo I guess...
+      closingAnimation: 0
+      setTrigger: None
+      hasResponse: 0
+      responses:
+      - setTrigger: None
+        responseText: Response
+      triggerNextConversation: 0
 --- !u!95 &444439188
 Animator:
   serializedVersion: 3
@@ -1449,6 +1495,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8813041365154144152, guid: d12dc474a9f3a46d8a35e90fd00366fb,
+        type: 3}
+      propertyPath: generalSounds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8813041365154144152, guid: d12dc474a9f3a46d8a35e90fd00366fb,
+        type: 3}
+      propertyPath: sounds.Array.data[0].name
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8813041365154144152, guid: d12dc474a9f3a46d8a35e90fd00366fb,
+        type: 3}
+      propertyPath: generalSounds.Array.data[0].name
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8813041365154144152, guid: d12dc474a9f3a46d8a35e90fd00366fb,
+        type: 3}
+      propertyPath: generalSounds.Array.data[1].name
+      value: na
+      objectReference: {fileID: 0}
+    - target: {fileID: 8813041365154144152, guid: d12dc474a9f3a46d8a35e90fd00366fb,
+        type: 3}
+      propertyPath: generalSounds.Array.data[2].name
+      value: fa
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d12dc474a9f3a46d8a35e90fd00366fb, type: 3}

@@ -17,13 +17,6 @@ public class DialogueManager : MonoBehaviour
     public GameObject responseScrollContent;
     public GameObject responseButtonPrefab;
     private GameObject[] responseButtons;
-
-    //private Vector2 currentBoxSize;
-    //private Vector2 futureBoxSize;
-
-    //private Animator character;
-    //private string[] animationTriggers;
-    //private Queue<int> animationSelections;
     private Queue<string> sentences;
 
     void Start()
@@ -87,6 +80,7 @@ public class DialogueManager : MonoBehaviour
 
     public void EndDialogue()
     {
+        StopAllCoroutines();
         enterText.enabled = false;
         nameText.enabled = false;
         dialogueBox.enabled = false;
@@ -95,6 +89,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartResponse(string[] responses, string[] triggers, NPCDialogue npcDialogue)
     {
+        StopAllCoroutines();
         responsesHeaderText.enabled = true;
         enterText.enabled = false;
         nameText.enabled = false;
