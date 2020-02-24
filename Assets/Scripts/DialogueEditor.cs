@@ -37,11 +37,22 @@ public class DialogueEditor : Editor
         useCustomName = dialogue.customNameToggle;
         conversations = dialogue.conversations;
 
+    }
+
+    public override void OnInspectorGUI()
+    {
         AnimationClip[] NPCAnimations = new AnimationClip[0];
         if (NPCDialogueScript.gameObject.GetComponent<Animator>() != null)
         {
-            hasAnimator = true;
-            NPCAnimations = NPCDialogueScript.gameObject.GetComponentInChildren<Animator>().runtimeAnimatorController.animationClips;
+            if(NPCDialogueScript.gameObject.GetComponent<Animator>().runtimeAnimatorController != null)
+            {
+                hasAnimator = true;
+                NPCAnimations = NPCDialogueScript.gameObject.GetComponentInChildren<Animator>().runtimeAnimatorController.animationClips;
+            }
+            else
+            {
+                hasAnimator = false;
+            }
         }
         else
         {
@@ -61,10 +72,7 @@ public class DialogueEditor : Editor
             flagNames[dictCount] = entry.Key;
             dictCount++;
         }
-    }
 
-    public override void OnInspectorGUI()
-    {
         g = new GUIStyle(EditorStyles.textField);
         g.normal.background = default;
         g.normal.textColor = Color.green;
@@ -98,7 +106,7 @@ public class DialogueEditor : Editor
         }
         else
         {
-            EditorGUILayout.LabelField("Character has no animator!", r);
+            EditorGUILayout.LabelField("Character has no animator or has no Controller!", r);
         }
 
         //how many conversations of dialogue this npc has
