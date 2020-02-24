@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Ground
+  - Light
+  - NPC
+  - Sheriff
+  - Barricade
+  - Teleport
+  - Teleport2
   layers:
   - Default
   - TransparentFX
