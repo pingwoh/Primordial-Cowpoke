@@ -15,6 +15,7 @@ TagManager:
   - LevelTwoReturn
   - LevelThree
   - Vampire
+  - Sizzle
   layers:
   - Default
   - TransparentFX

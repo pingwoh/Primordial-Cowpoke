@@ -13,6 +13,7 @@ public class CowpokeController : MonoBehaviour
     public GameObject Sheriff;
     public GameObject Light;
 
+    public GameObject fadeAnimator;
 
     public GameObject levelOneLeave;
     public GameObject levelOneReturn;
@@ -123,6 +124,13 @@ public class CowpokeController : MonoBehaviour
             playerRB.velocity = new Vector2(Mathf.Sign(playerRB.velocity.x) * maxMovementSpeed, playerRB.velocity.y);
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+            Debug.Log("You closed the application.");
+        }
+
+
         /*if (GetComponent<Rigidbody2D>().velocity.y == 0)
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
@@ -136,18 +144,6 @@ public class CowpokeController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-
-        if (other.CompareTag("Sheriff"))
-        {
-            hasKey = true;
-            Destroy(other.gameObject);
-            Instantiate(Resources.Load("Particle System"), other.transform.position, Quaternion.identity);
-        }
-        if (other.CompareTag("Barricade") && hasKey == true)
-        {
-            Destroy(other.gameObject);
-            Instantiate(Resources.Load("ChestSound"), other.transform.position, Quaternion.identity);
-        }
         if (other.CompareTag("Light"))
         {
             if (playerAnimator.GetBool("Sunny") == false)
@@ -155,6 +151,15 @@ public class CowpokeController : MonoBehaviour
                 Instantiate(Resources.Load("sunlightEffect"), other.transform.position, Quaternion.identity);
             }
             Debug.Log("AAAH OUCH THE SUN");
+            Instantiate(Resources.Load("SizzleSound"), other.transform.position, Quaternion.identity);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Light"))
+        {
+            Destroy(GameObject.FindGameObjectWithTag("Sizzle"));
         }
     }
 
@@ -175,7 +180,14 @@ public class CowpokeController : MonoBehaviour
                 Light.GetComponent<BoxCollider2D>().enabled = true;
             }
         }
-
+        if (other.CompareTag("Sheriff"))
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                hasKey = true;
+                Instantiate(Resources.Load("KeySound"), other.transform.position, Quaternion.identity);
+            }
+        }
 
 
         if (other.CompareTag("LevelOneLeave") && Input.GetKeyDown(KeyCode.E))
@@ -194,9 +206,10 @@ public class CowpokeController : MonoBehaviour
         {
             gameObject.transform.position = levelTwoLeave.transform.position;
         }
-        if (other.CompareTag("LevelThree") && Input.GetKeyDown(KeyCode.E))
+        if (other.CompareTag("Barricade") && Input.GetKeyDown(KeyCode.E) && hasKey == true)
         {
-            //this will be for triggering the end thing
+            Destroy(other.gameObject);
+            fadeAnimator.gameObject.SetActive(true);
         }
     }
 }

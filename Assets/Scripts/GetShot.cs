@@ -7,9 +7,12 @@ public class GetShot : MonoBehaviour
     private Animator vampAnimator { get { return GetComponent<Animator>(); } }
     private Animator playerAnimator { get { return FindObjectOfType<CowpokeController>().GetComponent<Animator>(); } }
 
+    public AudioManager audioManager { get { return FindObjectOfType<AudioManager>(); } }
+
     public void TriggerShot()
     {
         StartCoroutine(ShotTimer());
+        audioManager.PlayAudio("GUNSHOT");
     }
     IEnumerator ShotTimer()
     {
