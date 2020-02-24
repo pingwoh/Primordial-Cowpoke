@@ -27,10 +27,11 @@ public class CowpokeController : MonoBehaviour
 
     private Rigidbody2D playerRB { get { return GetComponent<Rigidbody2D>(); } }
 
-    private int movementSpeed = 15;
+    private int movementSpeed = 100;
     private int maxMovementSpeed = 15;
 
     private bool firstPress = true;
+    public bool canMove = true;
 
     private void Awake()
     {
@@ -59,41 +60,54 @@ public class CowpokeController : MonoBehaviour
         //won't play unless the player has fully woken up
         else
         {
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+            if (canMove)
             {
-                if (groundCheck == true)
+                if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
                 {
-                    GetComponent<Rigidbody2D>().AddForce(Vector2.up * 300);
+                    if (groundCheck == true)
+                    {
+                        GetComponent<Rigidbody2D>().AddForce(Vector2.up * 300);
+                    }
+                    groundCheck = false;
                 }
-                groundCheck = false;
-            }
-            else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
-            {
-                GetComponent<Rigidbody2D>().AddForce(Vector2.right * 100);
-
-                playerAnimator.SetBool("Walking", true);
-                playerAnimator.SetBool("Sitting", false);
-
-                if (characterSprite != null)
+                else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
                 {
-                    characterSprite.flipX = true;
+                    GetComponent<Rigidbody2D>().AddForce(Vector2.right * movementSpeed);
+
+                    playerAnimator.SetBool("Walking", true);
+                    playerAnimator.SetBool("Sitting", false);
+
+                    if (characterSprite != null)
+                    {
+                        characterSprite.flipX = true;
+                    }
                 }
-            }
-            else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
-            {
-                GetComponent<Rigidbody2D>().AddForce(Vector2.left * 100);
-
-                playerAnimator.SetBool("Walking", true);
-                playerAnimator.SetBool("Sitting", false);
-
-                if (characterSprite != null)
+                else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
                 {
-                    characterSprite.flipX = false;
+                    GetComponent<Rigidbody2D>().AddForce(Vector2.left * movementSpeed);
+
+                    playerAnimator.SetBool("Walking", true);
+                    playerAnimator.SetBool("Sitting", false);
+
+                    if (characterSprite != null)
+                    {
+                        characterSprite.flipX = false;
+                    }
                 }
-            }
-            else if (Input.GetKey(KeyCode.Q))
-            {
-                playerAnimator.SetBool("Sunny", true);
+                else
+                {
+                    playerAnimator.SetBool("Walking", false);
+                    playerAnimator.SetBool("Sitting", false);
+                }
+                if (Input.GetKey(KeyCode.Q))
+                {
+                    playerAnimator.SetBool("Sunny", true);
+                }
+                else
+                {
+                    playerAnimator.SetBool("Sunny", false);
+
+                }
             }
             else
             {

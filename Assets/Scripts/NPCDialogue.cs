@@ -22,6 +22,8 @@ public class NPCDialogue : MonoBehaviour
     //player's dictionary for their triggers
     private Dictionary<string, bool> playerFlags { get{ return playerManager.playerFlags ; } }
 
+    private CowpokeController playerController {get { return FindObjectOfType<CowpokeController>(); } }
+
     public bool playingDialogue = false;
     public bool playingResponse = false;
     private int conversationNumber = 0;
@@ -75,11 +77,13 @@ public class NPCDialogue : MonoBehaviour
                     if (activatedResponse.outcomes.queueNextConversation)
                     {
                         conversationNumber++;
+                        playerController.canMove = true;
                         return;
                     }
                     else
                     {
                         //stops the loop
+                        playerController.canMove = true;
                         return;
                     }
 
@@ -98,10 +102,12 @@ public class NPCDialogue : MonoBehaviour
                     if (activatedResponse.outcomes.queueNextConversation)
                     {
                         conversationNumber++;
+                        playerController.canMove = true;
                         return;
                     }
                     else
                     {
+                        playerController.canMove = true;
                         return;
                     }
                 }
@@ -152,6 +158,7 @@ public class NPCDialogue : MonoBehaviour
                     //stops audio because dialogue is over and tells dialogue manager to close dialogue window because there is nothing else to display
                     audioManager.StopDialogueAudio();
                     dialogueManager.EndDialogue();
+                    playerController.canMove = true;
                 }
                 else if (currentConversation.outcomes.triggerEvent.toggleBool)
                 {
@@ -162,6 +169,7 @@ public class NPCDialogue : MonoBehaviour
                     //stops audio because dialogue is over and tells dialogue manager to close dialogue window because there is nothing else to display
                     audioManager.StopDialogueAudio();
                     dialogueManager.EndDialogue();
+                    playerController.canMove = true;
                 }
             }
             //runs if there are more sentences to display
@@ -202,6 +210,7 @@ public class NPCDialogue : MonoBehaviour
             {
                 //start of playing dialogue
                 playingDialogue = true;
+                playerController.canMove = false;
                 //string array for all the sentences in the current conversation
                 string[] newSentences = new string[dialogue.conversations[conversationNumber].statements.Count];
                 if (newSentences.Length > 0)
@@ -251,9 +260,8 @@ public class NPCDialogue : MonoBehaviour
                 dialogueManager.EndDialogue();
                 //resets conversationNumber so that NPC will display the last conversation displayed when activated.
                 conversationNumber = startingConversationNumber;
+                playerController.canMove = true;
             }
-
-
         }
 
     }
