@@ -33,15 +33,18 @@ public class DialogueManager : MonoBehaviour
         nameText.enabled = false;
         enterText.enabled = false;
         nameText.text = NPCName;
-        enterText.text = "Press N";
+        enterText.text = "Press Enter";
         sentences.Clear();
-
-        foreach (string sentence in newSentences)
+        Debug.Log(newSentences.Length);
+        if (newSentences.Length > 0)
         {
-            sentences.Enqueue(sentence);
-        }
+            foreach (string sentence in newSentences)
+            {
+                sentences.Enqueue(sentence);
+            }
 
-        ContinueDialogue();
+            ContinueDialogue();
+        }
     }
 
     public bool ContinueDialogue()
@@ -87,7 +90,7 @@ public class DialogueManager : MonoBehaviour
         dialogueText.text = "";
     }
 
-    public void StartResponse(string[] responses, string[] triggers, NPCDialogue npcDialogue)
+    public void StartResponse(string[] responses, string[] flags, NPCDialogue npcDialogue)
     {
         StopAllCoroutines();
         responsesHeaderText.enabled = true;
@@ -100,7 +103,8 @@ public class DialogueManager : MonoBehaviour
         {
             responseButtons[i] = Instantiate(responseButtonPrefab, responseScrollContent.transform);
             responseButtons[i].GetComponentInChildren<Text>().text = responses[i];
-            responseButtons[i].GetComponent<ResponseButton>().playerTrigger = triggers[i];
+            responseButtons[i].GetComponent<ResponseButton>().responseNumber = i;
+            responseButtons[i].GetComponent<ResponseButton>().playerFlag = flags[i];
             responseButtons[i].GetComponent<ResponseButton>().npcDialogue = npcDialogue;
         }
     }

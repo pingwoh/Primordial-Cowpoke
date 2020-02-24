@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor.AnimatedValues;
 
 [System.Serializable]
 public class Dialogue
@@ -14,16 +15,15 @@ public class Dialogue
 public class Conversation
 {
     [SerializeField]
-    public bool showConversation;
+    public DisplayToggle showConversation;
     public string conversationName;
-    public string requiredTrigger;
+    public string requiredFlag;
     public bool hasAudio;
     public List<Statement> statements;
     public int closingAnimation;
-    public string setTrigger;
-    public bool hasResponse;
+    public Outcomes outcomes;
+    public DisplayToggle hasResponse;
     public List<Response> responses;
-    public bool triggerNextConversation;
 }
 
 [System.Serializable]
@@ -38,6 +38,25 @@ public class Statement
 [System.Serializable]
 public class Response
 {
-    public string setTrigger;
+    public Outcomes outcomes;
     public string responseText;
+    public bool triggerNextConversation;
+}
+
+[System.Serializable]
+public class Outcomes
+{
+    public string setFlag;
+    public bool queueNextConversation;
+    public DisplayToggle triggerEvent;
+    public GameObject eventObject;
+    public MonoBehaviour eventScript;
+    public string eventMethod;
+}
+
+[System.Serializable]
+public class DisplayToggle
+{
+    public bool toggleBool;
+    public AnimBool toggleAnim;
 }

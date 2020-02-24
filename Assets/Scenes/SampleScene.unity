@@ -203,6 +203,99 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &311490762
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 311490766}
+  - component: {fileID: 311490765}
+  - component: {fileID: 311490763}
+  m_Layer: 0
+  m_Name: ExampleEventSprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &311490763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311490762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64ae491130a1cde4bb6f5876ef7a9b5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!212 &311490765
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311490762}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 24cc9076dab7813478f9f34b45823d47, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 2.56, y: 2.56}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &311490766
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311490762}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.224, y: 3.016, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &434874343
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,7 +391,7 @@ RectTransform:
   - {fileID: 979078275}
   - {fileID: 2027109799}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -317,6 +410,7 @@ GameObject:
   - component: {fileID: 444439190}
   - component: {fileID: 444439189}
   - component: {fileID: 444439188}
+  - component: {fileID: 444439192}
   - component: {fileID: 444439187}
   m_Layer: 0
   m_Name: Test NPC
@@ -341,9 +435,14 @@ MonoBehaviour:
     customNameToggle: 1
     characterName: Tester
     conversations:
-    - showConversation: 1
+    - showConversation:
+        toggleBool: 1
+        toggleAnim:
+          m_Target: 1
+          speed: 2
+          m_Value: 1
       conversationName: Starting Conversation
-      requiredTrigger: None
+      requiredFlag: None
       hasAudio: 1
       statements:
       - animationSelection: 0
@@ -354,8 +453,8 @@ MonoBehaviour:
           volume: 1
           loop: 0
           source: {fileID: 0}
-        statementText: This is a test conversation.
-      - animationSelection: 1
+        statementText: This is a conversation demo!
+      - animationSelection: 0
         hasCustomAudio: 0
         audioProperties:
           name: Nothing
@@ -363,8 +462,8 @@ MonoBehaviour:
           volume: 1
           loop: 0
           source: {fileID: 0}
-        statementText: If you are seeing this, it means the conversation is working!
-      - animationSelection: 2
+        statementText: If you're seeing this, that means the system is working!
+      - animationSelection: 0
         hasCustomAudio: 0
         audioProperties:
           name: Nothing
@@ -372,69 +471,74 @@ MonoBehaviour:
           volume: 1
           loop: 0
           source: {fileID: 0}
-        statementText: How does that make you feel?
+        statementText: Click on one of the responses to see its effect.
       closingAnimation: 0
-      setTrigger: None
-      hasResponse: 1
+      outcomes:
+        setFlag: None
+        queueNextConversation: 1
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
+      hasResponse:
+        toggleBool: 1
+        toggleAnim:
+          m_Target: 1
+          speed: 2
+          m_Value: 1
       responses:
-      - setTrigger: Happy
-        responseText: It makes me happy!
-      - setTrigger: Mad
-        responseText: It makes me mad!
-      triggerNextConversation: 1
-    - showConversation: 0
-      conversationName: Happy Conversation
-      requiredTrigger: Happy
-      hasAudio: 1
-      statements:
-      - animationSelection: 0
-        hasCustomAudio: 0
-        audioProperties:
-          name: 
-          clip: {fileID: 8300000, guid: 5b2c334be64947d488f93c049545e5bd, type: 3}
-          volume: 1
-          loop: 0
-          source: {fileID: 0}
-        statementText: I'm glad it makes you happy!
-      - animationSelection: 0
-        hasCustomAudio: 0
-        audioProperties:
-          name: Nothing
-          clip: {fileID: 8300000, guid: 067afc44190570b46b05c74f026551b0, type: 3}
-          volume: 1
-          loop: 0
-          source: {fileID: 0}
-        statementText: Hopefully we can make more dialogue now.
-      - animationSelection: 0
-        hasCustomAudio: 0
-        audioProperties:
-          name: Nothing
-          clip: {fileID: 8300000, guid: 13b5c938cd7be6142b41cb6a9105b12c, type: 3}
-          volume: 1
-          loop: 0
-          source: {fileID: 0}
-        statementText: That's the end of this demo!
-      closingAnimation: 0
-      setTrigger: None
-      hasResponse: 0
-      responses:
-      - setTrigger: None
-        responseText: Response
-      triggerNextConversation: 0
-    - showConversation: 0
-      conversationName: Mad Conversation
-      requiredTrigger: Mad
+      - outcomes:
+          setFlag: Red
+          queueNextConversation: 1
+          triggerEvent:
+            toggleBool: 1
+            toggleAnim:
+              m_Target: 1
+              speed: 2
+              m_Value: 1
+          eventObject: {fileID: 311490762}
+          eventScript: {fileID: 311490763}
+          eventMethod: MakeRed
+        responseText: Turn the other square red!
+        triggerNextConversation: 0
+      - outcomes:
+          setFlag: NextConvo
+          queueNextConversation: 0
+          triggerEvent:
+            toggleBool: 0
+            toggleAnim:
+              m_Target: 0
+              speed: 2
+              m_Value: 0
+          eventObject: {fileID: 0}
+          eventScript: {fileID: 0}
+          eventMethod: 
+        responseText: See the next Conversation!
+        triggerNextConversation: 1
+    - showConversation:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      conversationName: Red Square
+      requiredFlag: Red
       hasAudio: 0
       statements:
       - animationSelection: 0
         hasCustomAudio: 0
         audioProperties:
-          name: 
+          name: Nothing
           clip: {fileID: 0}
-          volume: 0
+          volume: 1
           loop: 0
           source: {fileID: 0}
-        statementText: Oh... well that's ok I guess.
+        statementText: The other square should be red now.
       - animationSelection: 0
         hasCustomAudio: 0
         audioProperties:
@@ -443,14 +547,106 @@ MonoBehaviour:
           volume: 1
           loop: 0
           source: {fileID: 0}
-        statementText: That's the end of this demo I guess...
+        statementText: That's the end of this demo!
       closingAnimation: 0
-      setTrigger: None
-      hasResponse: 0
+      outcomes:
+        setFlag: None
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
+      hasResponse:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
       responses:
-      - setTrigger: None
+      - outcomes:
+          setFlag: None
+          queueNextConversation: 0
+          triggerEvent:
+            toggleBool: 0
+            toggleAnim:
+              m_Target: 0
+              speed: 2
+              m_Value: 0
+          eventObject: {fileID: 0}
+          eventScript: {fileID: 0}
+          eventMethod: 
         responseText: Response
-      triggerNextConversation: 0
+        triggerNextConversation: 0
+    - showConversation:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      conversationName: See Next
+      requiredFlag: NextConvo
+      hasAudio: 0
+      statements:
+      - animationSelection: 0
+        hasCustomAudio: 0
+        audioProperties:
+          name: Nothing
+          clip: {fileID: 0}
+          volume: 1
+          loop: 0
+          source: {fileID: 0}
+        statementText: This should have automatically played!
+      - animationSelection: 0
+        hasCustomAudio: 0
+        audioProperties:
+          name: Nothing
+          clip: {fileID: 0}
+          volume: 1
+          loop: 0
+          source: {fileID: 0}
+        statementText: That's the end of this demo!
+      closingAnimation: 0
+      outcomes:
+        setFlag: None
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
+      hasResponse:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      responses:
+      - outcomes:
+          setFlag: None
+          queueNextConversation: 0
+          triggerEvent:
+            toggleBool: 0
+            toggleAnim:
+              m_Target: 0
+              speed: 2
+              m_Value: 0
+          eventObject: {fileID: 0}
+          eventScript: {fileID: 0}
+          eventMethod: 
+        responseText: Response
+        triggerNextConversation: 0
+  playingDialogue: 0
+  playingResponse: 0
+  responseNumber: 1
 --- !u!95 &444439188
 Animator:
   serializedVersion: 3
@@ -559,6 +755,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &444439192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444439186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e09ed7780b5401c448107e05db7036cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &506880587
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,7 +895,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &919338457
 MonoBehaviour:
@@ -785,7 +993,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 181.8, y: -247}
+  m_AnchoredPosition: {x: 152.7, y: -247}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &989584418
@@ -969,7 +1177,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1654593661
 GameObject:
@@ -1479,7 +1687,7 @@ PrefabInstance:
     - target: {fileID: 1702825146834777006, guid: d12dc474a9f3a46d8a35e90fd00366fb,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1702825146834777006, guid: d12dc474a9f3a46d8a35e90fd00366fb,
         type: 3}

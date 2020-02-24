@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
+using UnityEditor.AnimatedValues;
 
 [CustomEditor(typeof(NPCDialogue))]
 [CanEditMultipleObjects]
@@ -15,12 +18,16 @@ public class DialogueEditor : Editor
     static bool useCustomName;
 
     static string[] animationNames;
-    static Dictionary<string, bool> dialogueTriggers = DialogueTriggerDatabase.dialogueTriggers;
+    static Dictionary<string, bool> dialogueFlags = DialogueFlagDatabase.dialogueFlags;
 
     List<Conversation> conversations;
-    static string[] triggerNames;
+    static string[] flagNames;
 
     static bool hasAnimator;
+
+    GUIStyle g;
+    GUIStyle r;
+
     void OnEnable()
     {
         NPCDialogueScript = (NPCDialogue)target;
@@ -47,21 +54,21 @@ public class DialogueEditor : Editor
             animationNames[i] = NPCAnimations[i].name;
         }
 
-        triggerNames = new string[dialogueTriggers.Count];
+        flagNames = new string[dialogueFlags.Count];
         int dictCount = 0;
-        foreach (KeyValuePair<string, bool> entry in dialogueTriggers)
+        foreach (KeyValuePair<string, bool> entry in dialogueFlags)
         {
-            triggerNames[dictCount] = entry.Key;
+            flagNames[dictCount] = entry.Key;
             dictCount++;
         }
     }
 
     public override void OnInspectorGUI()
     {
-        GUIStyle g = new GUIStyle(EditorStyles.textField);
+        g = new GUIStyle(EditorStyles.textField);
         g.normal.background = default;
         g.normal.textColor = Color.green;
-        GUIStyle r = new GUIStyle(EditorStyles.textField);
+        r = new GUIStyle(EditorStyles.textField);
         r.normal.background = default;
         r.normal.textColor = Color.red;
 
@@ -108,9 +115,13 @@ public class DialogueEditor : Editor
             conversations.Add(
                 new Conversation
                 {
-                    showConversation = false,
+                    showConversation = new DisplayToggle
+                    {
+                        toggleBool = false,
+                        toggleAnim = new AnimBool(false),
+                    },
                     conversationName = "Conversation " + (conversations.Count + 1),
-                    requiredTrigger = "None",
+                    requiredFlag = "None",
                     hasAudio = false,
                     statements = new List<Statement> {
                         new Statement {
@@ -126,15 +137,43 @@ public class DialogueEditor : Editor
                         }
                     },
                     closingAnimation = 0,
-                    setTrigger = "None",
-                    hasResponse = false,
+                    outcomes = new Outcomes
+                    {
+                        setFlag = "None",
+                        queueNextConversation = false,
+                        triggerEvent = new DisplayToggle
+                        {
+                            toggleBool = false,
+                            toggleAnim = new AnimBool(false),
+                        },
+                        eventObject = null,
+                        eventScript = null,
+                        eventMethod = null,
+                    },
+                    hasResponse = new DisplayToggle
+                    {
+                        toggleBool = false,
+                        toggleAnim = new AnimBool(false),
+                    },
                     responses = new List<Response> {
                         new Response {
-                            setTrigger = "None",
+                            outcomes = new Outcomes
+                            {
+                                setFlag = "None",
+                                queueNextConversation = false,
+                                triggerEvent = new DisplayToggle
+                                {
+                                    toggleBool = false,
+                                    toggleAnim = new AnimBool(false),
+                                },
+                                eventObject = null,
+                                eventScript = null,
+                                eventMethod = null,
+                            },
                             responseText = "Response",
+                            triggerNextConversation = false,
                         }
                     },
-                    triggerNextConversation = false,
                 }
             );
         }
@@ -143,20 +182,21 @@ public class DialogueEditor : Editor
             conversations.RemoveAt(conversations.Count - 1);
         }
 
+        int conversationCounter = 0;
         foreach (Conversation conversation in conversations)
         {
             EditorGUI.indentLevel = 0;
 
-            conversation.showConversation = EditorGUILayout.BeginFoldoutHeaderGroup(conversation.showConversation, conversation.conversationName);
-
-            if (conversation.showConversation)
+            conversation.showConversation.toggleBool = EditorGUILayout.BeginFoldoutHeaderGroup(conversation.showConversation.toggleBool, conversation.conversationName);
+            conversation.showConversation.toggleAnim.target = conversation.showConversation.toggleBool;
+            if (EditorGUILayout.BeginFadeGroup(conversation.showConversation.toggleAnim.faded))
             {
                 conversation.conversationName = EditorGUILayout.TextField("Conversation Name:", conversation.conversationName);
 
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField("Required Trigger:");
-                conversation.requiredTrigger = checkTriggers(conversation.requiredTrigger);
-                conversation.requiredTrigger = triggerNames[EditorGUILayout.Popup(System.Array.IndexOf(triggerNames, conversation.requiredTrigger), triggerNames)];
+                conversation.requiredFlag = checkFlags(conversation.requiredFlag);
+                conversation.requiredFlag = flagNames[EditorGUILayout.Popup(System.Array.IndexOf(flagNames, conversation.requiredFlag), flagNames)];
                 EditorGUILayout.EndHorizontal();
 
                 conversation.hasAudio = EditorGUILayout.Toggle("Has Audio?", conversation.hasAudio);
@@ -254,20 +294,51 @@ public class DialogueEditor : Editor
                 }
 
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("Set Player Trigger:");
-                conversation.setTrigger = checkTriggers(conversation.setTrigger);
-                conversation.setTrigger = triggerNames[EditorGUILayout.Popup(System.Array.IndexOf(triggerNames, conversation.setTrigger), triggerNames)];
+                EditorGUILayout.LabelField("Set Player Dialogue Flag:");
+                conversation.outcomes.setFlag = checkFlags(conversation.outcomes.setFlag);
+                conversation.outcomes.setFlag = flagNames[EditorGUILayout.Popup(System.Array.IndexOf(flagNames, conversation.outcomes.setFlag), flagNames)];
                 EditorGUILayout.EndHorizontal();
 
-                EditorGUI.indentLevel--;
-                EditorGUILayout.LabelField("\n");
+                if(conversation.outcomes.triggerEvent.toggleBool || !conversation.hasResponse.toggleBool)
+                {
+                    conversation.outcomes.queueNextConversation = EditorGUILayout.Toggle("Queue Next Conversation?", conversation.outcomes.queueNextConversation);
+                }
+                else
+                {
+                    EditorGUILayout.LabelField("Queue Next Conversation?", "Set Queue in Responses!", r);
+                }
 
-                conversation.hasResponse = EditorGUILayout.Toggle("Has Response?", conversation.hasResponse);
+                conversation.outcomes.triggerEvent.toggleBool = EditorGUILayout.Toggle("Trigger Event?", conversation.outcomes.triggerEvent.toggleBool);
+                conversation.outcomes.triggerEvent.toggleAnim.target = conversation.outcomes.triggerEvent.toggleBool;
 
-                if (conversation.hasResponse)
+                if (EditorGUILayout.BeginFadeGroup(conversation.outcomes.triggerEvent.toggleAnim.faded))
+                {
+                    EditorGUI.indentLevel++;
+
+                    EventTriggerSelection(conversation.outcomes);
+                }
+                EditorGUILayout.EndFadeGroup();
+                EditorGUI.indentLevel = 0;
+
+                if (conversation.outcomes.triggerEvent.toggleBool)
+                {
+                    conversation.hasResponse.toggleAnim.target = !conversation.outcomes.triggerEvent.toggleBool;
+                    EditorGUILayout.LabelField("\n");
+                    EditorGUILayout.LabelField("Has Response?", "Can't Have Response if Triggering an Event!", r);
+                }
+                else
+                {
+                    EditorGUILayout.LabelField("\n");
+
+                    conversation.hasResponse.toggleBool = EditorGUILayout.Toggle("Has Response?", conversation.hasResponse.toggleBool);
+                    conversation.hasResponse.toggleAnim.target = conversation.hasResponse.toggleBool;
+                }
+
+                if (EditorGUILayout.BeginFadeGroup(conversation.hasResponse.toggleAnim.faded))
                 {
                     int numberOfResponses = conversation.responses.Count;
                     numberOfResponses = EditorGUILayout.IntField("Number of Responses:", numberOfResponses);
+                    EditorGUILayout.LabelField("\n");
                     if (numberOfResponses < 1)
                     {
                         numberOfResponses = 1;
@@ -277,7 +348,19 @@ public class DialogueEditor : Editor
                         conversation.responses.Add(
                             new Response
                             {
-                                setTrigger = "None",
+                                outcomes = new Outcomes
+                                {
+                                    setFlag = "None",
+                                    triggerEvent = new DisplayToggle
+                                    {
+                                        toggleBool = false,
+                                        toggleAnim = new AnimBool(false),
+                                    },
+                                    queueNextConversation = false,
+                                    eventObject = null,
+                                    eventScript = null,
+                                    eventMethod = null,
+                                },
                                 responseText = "Response",
                             }
                         );
@@ -287,50 +370,144 @@ public class DialogueEditor : Editor
                         conversation.responses.RemoveAt(conversation.responses.Count - 1);
                     }
 
+                    int responseCounter = 0;
                     foreach (Response response in conversation.responses)
                     {
                         EditorGUI.indentLevel++;
+                        EditorGUILayout.LabelField("Response " + (responseCounter + 1));
+                        EditorGUI.indentLevel++;
 
                         EditorGUILayout.BeginHorizontal();
-                        EditorGUILayout.LabelField("Set Trigger:");
-                        response.setTrigger = checkTriggers(response.setTrigger);
-                        response.setTrigger = triggerNames[EditorGUILayout.Popup(System.Array.IndexOf(triggerNames, response.setTrigger), triggerNames)];
+                        EditorGUILayout.LabelField("Set Player Dialogue Flag:");
+                        response.outcomes.setFlag = checkFlags(response.outcomes.setFlag);
+                        response.outcomes.setFlag = flagNames[EditorGUILayout.Popup(System.Array.IndexOf(flagNames, response.outcomes.setFlag), flagNames)];
                         EditorGUILayout.EndHorizontal();
+
+                        if(!response.triggerNextConversation || response.outcomes.triggerEvent.toggleBool)
+                        {
+                            response.outcomes.queueNextConversation = EditorGUILayout.Toggle("Queue Next Conversation?", response.outcomes.queueNextConversation);
+                        }
+                        else
+                        {
+                            EditorGUILayout.LabelField("Queue Next Conversation?", "Triggering Next Conversation Automatically Queues Next Conversation", r);
+                        }
+
+                        response.outcomes.triggerEvent.toggleBool = EditorGUILayout.Toggle("Trigger Event?", response.outcomes.triggerEvent.toggleBool);
+                        response.outcomes.triggerEvent.toggleAnim.target = response.outcomes.triggerEvent.toggleBool;
+                        if (EditorGUILayout.BeginFadeGroup(response.outcomes.triggerEvent.toggleAnim.faded))
+                        {
+                            EventTriggerSelection(response.outcomes);
+                        }
+                        EditorGUILayout.EndFadeGroup();
+                        if (response.outcomes.triggerEvent.toggleBool)
+                        {
+
+                            EditorGUILayout.LabelField("\n");
+                            EditorGUILayout.LabelField("Trigger Next Conversation?", "Can't Trigger Next Conversation if Triggering Event!", r);
+                        }
+                        else
+                        {
+                            response.triggerNextConversation = EditorGUILayout.Toggle("Trigger Next Conversation?", response.triggerNextConversation);
+                        }
 
                         response.responseText = EditorGUILayout.TextField("Response Text:", response.responseText);
 
+                        EditorGUILayout.LabelField("\n");
                         EditorGUI.indentLevel--;
+                        EditorGUI.indentLevel--;
+                        responseCounter++;
                     }
                 }
-
-                EditorGUILayout.LabelField("\n");
-                conversation.triggerNextConversation = EditorGUILayout.Toggle("Trigger Next Conversation?", conversation.triggerNextConversation);
-
+                EditorGUILayout.EndFadeGroup();
+                //runs if dialogue isn't triggering an event
             }
 
             EditorGUI.indentLevel = 0;
 
             EditorGUILayout.EndFoldoutHeaderGroup();
+            EditorGUILayout.EndFadeGroup();
+            conversationCounter++;
         }
     }
 
-    private string checkTriggers(string trigger)
+    private void EventTriggerSelection(Outcomes outcomes)
+    {
+        outcomes.eventObject = EditorGUILayout.ObjectField("Event Script Object:", outcomes.eventObject, typeof(GameObject), true) as GameObject;
+        if (outcomes.eventObject == null)
+        {
+            EditorGUILayout.LabelField("Event Script:", "No Event Object Selected!", r);
+            EditorGUILayout.LabelField("Event Script Method:", "No Event Script Selected!", r);
+        }
+        else
+        {
+            if (outcomes.eventObject.GetComponent<MonoBehaviour>() == null)
+            {
+                EditorGUILayout.LabelField("Event Script:", "No Scripts Attached To Event Object!", r);
+                EditorGUILayout.LabelField("Event Script Method:", "No Event Script Selected!", r);
+            }
+            else
+            {
+                if (outcomes.eventScript == null)
+                {
+                    outcomes.eventScript = outcomes.eventObject.GetComponent<MonoBehaviour>();
+                }
+                MonoBehaviour[] scripts = outcomes.eventObject.GetComponents<MonoBehaviour>();
+                if (scripts.ToList().IndexOf(outcomes.eventScript) < 0)
+                {
+                    outcomes.eventScript = scripts[0];
+                }
+                string[] scriptNames = scripts.Select(s => s.GetType().Name).ToArray();
+                int scriptIndex = EditorGUILayout.Popup("Event Script:", scripts.ToList().IndexOf(outcomes.eventScript), scriptNames);
+                if (scriptIndex >= 0)
+                {
+                    outcomes.eventScript = scripts[scriptIndex];
+                }
+                if (outcomes.eventScript == null)
+                {
+                    EditorGUILayout.LabelField("Event Script Method:", "No Event Script Selected!", r);
+                }
+                else
+                {
+                    MethodInfo[] methods = outcomes.eventScript.GetType().GetMethods().Where(m => m.DeclaringType == outcomes.eventScript.GetType()).ToArray();
+                    if (methods.Length == 0)
+                    {
+                        EditorGUILayout.LabelField("Event Script Method:", "Selected Event Script Doesn't Have Any Methods!", r);
+                    }
+                    else
+                    {
+                        string[] methodNames = methods.Select(m => m.Name).ToArray();
+                        if (methodNames.ToList().IndexOf(outcomes.eventMethod) < 0 || outcomes.eventMethod == null)
+                        {
+                            outcomes.eventMethod = methodNames[0];
+                        }
+                        int methodIndex = EditorGUILayout.Popup("Event Script Method:", methodNames.ToList().IndexOf(outcomes.eventMethod), methodNames);
+                        if (methodIndex >= 0)
+                        {
+                            outcomes.eventMethod = methodNames[methodIndex];
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private string checkFlags(string flag)
     {
         bool match = false;
-        foreach(string name in triggerNames)
+        foreach (string name in flagNames)
         {
-            if(trigger == name)
+            if (flag == name)
             {
                 match = true;
             }
         }
-        if(match)
+        if (match)
         {
-            return trigger;
+            return flag;
         }
         else
         {
-            return triggerNames[0];
+            return flagNames[0];
         }
     }
 }

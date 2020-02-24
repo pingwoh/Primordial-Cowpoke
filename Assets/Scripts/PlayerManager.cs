@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    Dictionary<string, bool> dialogueTriggerDatabase = DialogueTriggerDatabase.dialogueTriggers;
+    Dictionary<string, bool> dialogueFlagDatabase = DialogueFlagDatabase.dialogueFlags;
 
-    public Dictionary<string, bool> playerTriggers = new Dictionary<string, bool>();
+    public Dictionary<string, bool> playerFlags = new Dictionary<string, bool>();
 
     void Start()
     {
-        foreach (KeyValuePair<string, bool> entry in dialogueTriggerDatabase)
+        foreach (KeyValuePair<string, bool> entry in dialogueFlagDatabase)
         {
-            bool triggerBool;
+            bool flagBool;
             if (PlayerPrefs.GetInt(entry.Key) > 0)
             {
-                triggerBool = true;
+                flagBool = true;
             }
             else
             {
-                triggerBool = false;
+                flagBool = false;
             }
-            playerTriggers.Add(entry.Key, triggerBool);
+            playerFlags.Add(entry.Key, flagBool);
         }
-        playerTriggers["None"] = true;
+        playerFlags["None"] = true;
     }
 
     void Update()
@@ -33,18 +33,18 @@ public class PlayerManager : MonoBehaviour
 
     void Save()
     {
-        foreach(KeyValuePair<string, bool> entry in playerTriggers)
+        foreach(KeyValuePair<string, bool> entry in playerFlags)
         {
-            int triggerBool;
+            int flagBool;
             if (entry.Value)
             {
-                triggerBool = 1;
+                flagBool = 1;
             }
             else
             {
-                triggerBool = 0;
+                flagBool = 0;
             }
-            PlayerPrefs.SetInt(entry.Key, triggerBool);
+            PlayerPrefs.SetInt(entry.Key, flagBool);
         }
     }
 }

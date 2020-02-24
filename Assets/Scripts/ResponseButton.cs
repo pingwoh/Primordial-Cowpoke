@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class ResponseButton : MonoBehaviour
 {
-    public string playerTrigger;
+    public int responseNumber;
+
+    public string playerFlag;
 
     private PlayerManager playerManager { get { return FindObjectOfType<PlayerManager>(); } }
 
@@ -12,7 +14,8 @@ public class ResponseButton : MonoBehaviour
 
     public void SelectResponse()
     {
-        playerManager.playerTriggers[playerTrigger] = true;
+        playerManager.playerFlags[playerFlag] = true;
+        npcDialogue.responseNumber = responseNumber;
         npcDialogue.PlayDialogue();
     }
 }

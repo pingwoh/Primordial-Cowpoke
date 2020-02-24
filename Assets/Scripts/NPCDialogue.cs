@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Reflection;
 
 [System.Serializable]
 public class NPCDialogue : MonoBehaviour
@@ -19,11 +20,12 @@ public class NPCDialogue : MonoBehaviour
     //audioManager in the scene
     private AudioManager audioManager { get { return FindObjectOfType<AudioManager>(); } }
     //player's dictionary for their triggers
-    private Dictionary<string, bool> playerTriggers { get{ return playerManager.playerTriggers; } }
+    private Dictionary<string, bool> playerFlags { get{ return playerManager.playerFlags ; } }
 
-    private bool playingDialogue = false;
-    private bool playingResponse = false;
+    public bool playingDialogue = false;
+    public bool playingResponse = false;
     private int conversationNumber = 0;
+    public int responseNumber;
 
     void Start()
     {
@@ -32,18 +34,10 @@ public class NPCDialogue : MonoBehaviour
     void Update()
     {
         //plays dialogue when N key is pressed down
-        //probably need to change so that the N key can only be pressed when dialogue as actually begun
-        if (Input.GetKeyDown(KeyCode.N))
+        if (Input.GetKeyDown(KeyCode.Return) && playingDialogue)
         {
             PlayDialogue();
         }
-    }
-
-    private void OnMouseDown()
-    {
-        //starts dialogue when the player clicks on the npc. Currently has no difference from pressing N but should in the future
-        //want to set up so that you can only click on and NPC when not currently in dialogue.
-        PlayDialogue();
     }
 
     public void PlayDialogue()
@@ -61,8 +55,10 @@ public class NPCDialogue : MonoBehaviour
             //should always return false but here just in case.
             if (playingResponse == false)
             {
+                Response activatedResponse = dialogue.conversations[conversationNumber].responses[responseNumber];
+
                 //runs if the dialogue script says the current conversation should trigger the next conversation
-                if (dialogue.conversations[conversationNumber].triggerNextConversation)
+                if (activatedResponse.triggerNextConversation && !activatedResponse.outcomes.triggerEvent.toggleBool)
                 {
                     //moves to the next conversation
                     conversationNumber++;
@@ -70,14 +66,44 @@ public class NPCDialogue : MonoBehaviour
                     playingResponse = false;
                 }
                 //runs if dialogue script says current conversation shouldn't trigger next conversation
-                else
+                else if(!activatedResponse.triggerNextConversation && !activatedResponse.outcomes.triggerEvent.toggleBool)
+                {
+                    //Ends the dialogue because response is over and no new dialogue is being triggered.
+                    dialogueManager.EndDialogue();
+                    //no longer displaying response screen
+                    playingResponse = false;
+                    if (activatedResponse.outcomes.queueNextConversation)
+                    {
+                        conversationNumber++;
+                        return;
+                    }
+                    else
+                    {
+                        //stops the loop
+                        return;
+                    }
+
+                }
+                else if (activatedResponse.outcomes.triggerEvent.toggleBool)
                 {
                     //Ends the dialogue because response is over and no new dialogue is being triggered.
                     dialogueManager.EndDialogue();
                     //no longer displaying response screen
                     playingResponse = false;
                     //stops the loop
-                    return;
+                    MonoBehaviour currentScript = activatedResponse.outcomes.eventScript;
+                    string methodString = activatedResponse.outcomes.eventMethod;
+                    MethodInfo currentMethod = currentScript.GetType().GetMethod(methodString);
+                    currentMethod.Invoke(currentScript, null);
+                    if (activatedResponse.outcomes.queueNextConversation)
+                    {
+                        conversationNumber++;
+                        return;
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
             }
         }
@@ -90,21 +116,22 @@ public class NPCDialogue : MonoBehaviour
             //if there aren't any more sentences to display
             if (playingDialogue == false)
             {
+                Conversation currentConversation = dialogue.conversations[conversationNumber];
                 //sets the trigger attached to the player to true if dialogue script says that trigger should be set once dialogue is finished
-                playerTriggers[dialogue.conversations[conversationNumber].setTrigger] = true;
+                playerFlags[currentConversation.outcomes.setFlag] = true;
                 //runs if the NPC is set to have a response to the sentences that were displayed
-                if (dialogue.conversations[conversationNumber].hasResponse)
+                if (currentConversation.hasResponse.toggleBool && !currentConversation.outcomes.triggerEvent.toggleBool)
                 {
                     //an array of the responses on the dialogue script
-                    string[] responses = new string[dialogue.conversations[conversationNumber].responses.Count];
+                    string[] responses = new string[currentConversation.responses.Count];
                     //an array of the triggers to set for each response that are attached to the dialogue script
-                    string[] triggers = new string[dialogue.conversations[conversationNumber].responses.Count];
+                    string[] triggers = new string[currentConversation.responses.Count];
                     int counter = 0;
                     //gives those arrays their values.
-                    foreach (Response response in dialogue.conversations[conversationNumber].responses)
+                    foreach (Response response in currentConversation.responses)
                     {
                         responses[counter] = response.responseText;
-                        triggers[counter] = response.setTrigger;
+                        triggers[counter] = response.outcomes.setFlag;
                         counter++;
                     }
                     //stops any dialogue audio playing on the audiomanager because dialogue has finished or been skipped.
@@ -116,8 +143,22 @@ public class NPCDialogue : MonoBehaviour
                     playingResponse = true;
                 }
                 //runs if the NPC is not set to have any responses.
-                else
+                else if(!currentConversation.hasResponse.toggleBool && !currentConversation.outcomes.triggerEvent.toggleBool)
                 {
+                    if (currentConversation.outcomes.queueNextConversation)
+                    {
+                        conversationNumber++;
+                    }
+                    //stops audio because dialogue is over and tells dialogue manager to close dialogue window because there is nothing else to display
+                    audioManager.StopDialogueAudio();
+                    dialogueManager.EndDialogue();
+                }
+                else if (currentConversation.outcomes.triggerEvent.toggleBool)
+                {
+                    if (currentConversation.outcomes.queueNextConversation)
+                    {
+                        conversationNumber++;
+                    }
                     //stops audio because dialogue is over and tells dialogue manager to close dialogue window because there is nothing else to display
                     audioManager.StopDialogueAudio();
                     dialogueManager.EndDialogue();
@@ -142,7 +183,7 @@ public class NPCDialogue : MonoBehaviour
             //gets current conversation number in case there aren't any conversations that work with current triggers.
             int startingConversationNumber = conversationNumber;
             //iterates through conversations attached to the dialogue script until one matches the triggers attached to the player
-            while (playerTriggers[dialogue.conversations[conversationNumber].requiredTrigger] == false)
+            while (playerFlags[dialogue.conversations[conversationNumber].requiredFlag] == false)
             {
                 conversationNumber++;
                 //detects if there aren't any more conversations and none of them have matched with the player's triggers
@@ -160,23 +201,33 @@ public class NPCDialogue : MonoBehaviour
                 playingDialogue = true;
                 //string array for all the sentences in the current conversation
                 string[] newSentences = new string[dialogue.conversations[conversationNumber].statements.Count];
-                int counter = 0;
-                //gives newSentence array its values. Also sends the sound clips for each sentence to the audio manager and creates a list of the NPC's animations to play
-                foreach(Statement statement in dialogue.conversations[conversationNumber].statements)
+                if (newSentences.Length > 0)
                 {
-                    //gets all animations
-                    currentAnimations.Enqueue(NPCAnimator.runtimeAnimatorController.animationClips[statement.animationSelection].name);
-                    //gets all sounds
-                    audioManager.dialogueSounds.Enqueue(statement.audioProperties);
-                    newSentences[counter] = statement.statementText;
-                    counter++;
+                    int counter = 0;
+                    //gives newSentence array its values. Also sends the sound clips for each sentence to the audio manager and creates a list of the NPC's animations to play
+                    foreach (Statement statement in dialogue.conversations[conversationNumber].statements)
+                    {
+                        //gets all animations
+                        currentAnimations.Enqueue(NPCAnimator.runtimeAnimatorController.animationClips[statement.animationSelection].name);
+                        //gets all sounds
+                        audioManager.dialogueSounds.Enqueue(statement.audioProperties);
+                        newSentences[counter] = statement.statementText;
+                        counter++;
+                    }
+                    //starts displaying dialogue through the dialoguemanager. Takes the NPC's name and its current sentences
+                    dialogueManager.StartDialogue(dialogue.characterName, newSentences);
+                    //starts playing sound through the audio manager. Only plays one sound at a time.
+                    audioManager.PlayDialogueAudio();
+                    //plays the animation associated with the first sentence of dialogue.
+                    NPCAnimator.Play(currentAnimations.Dequeue());
                 }
-                //starts displaying dialogue through the dialoguemanager. Takes the NPC's name and its current sentences
-                dialogueManager.StartDialogue(dialogue.characterName, newSentences);
-                //starts playing sound through the audio manager. Only plays one sound at a time.
-                audioManager.PlayDialogueAudio();
-                //plays the animation associated with the first sentence of dialogue.
-                NPCAnimator.Play(currentAnimations.Dequeue());
+                else
+                {
+                    NPCAnimator.Play(dialogue.conversations[conversationNumber].closingAnimation);
+                    dialogueManager.StartDialogue(dialogue.characterName, newSentences);
+                    PlayDialogue();
+                }
+
 
             }
             //if there aren't any conversations that match with triggers

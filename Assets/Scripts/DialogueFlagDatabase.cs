@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueTriggerDatabase
+public class DialogueFlagDatabase
 {
 
-    public static Dictionary<string, bool> dialogueTriggers = new Dictionary<string, bool>()
+    public static Dictionary<string, bool> dialogueFlags = new Dictionary<string, bool>()
     {
         {
             "None",
             true
         },
         {
-            "Mad",
+            "Red",
             false
         },
         {
-            "Happy",
+            "NextConvo",
             false
         },
         {
