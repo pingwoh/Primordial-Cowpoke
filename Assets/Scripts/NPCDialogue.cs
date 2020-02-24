@@ -172,7 +172,10 @@ public class NPCDialogue : MonoBehaviour
                 //plays the current sound sentence's
                 audioManager.PlayDialogueAudio();
                 //plays the NPC's animation associated with the sentence being displayed.
-                NPCAnimator.Play(currentAnimations.Dequeue());
+                if (NPCAnimator != null)
+                {
+                    NPCAnimator.Play(currentAnimations.Dequeue());
+                }
             }
         }
         //only runs if the NPC doesn't have any dialogue or responses on the screen.
@@ -208,7 +211,10 @@ public class NPCDialogue : MonoBehaviour
                     foreach (Statement statement in dialogue.conversations[conversationNumber].statements)
                     {
                         //gets all animations
-                        currentAnimations.Enqueue(NPCAnimator.runtimeAnimatorController.animationClips[statement.animationSelection].name);
+                        if(NPCAnimator != null)
+                        {
+                            currentAnimations.Enqueue(NPCAnimator.runtimeAnimatorController.animationClips[statement.animationSelection].name);
+                        }
                         //gets all sounds
                         audioManager.dialogueSounds.Enqueue(statement.audioProperties);
                         newSentences[counter] = statement.statementText;
@@ -219,11 +225,17 @@ public class NPCDialogue : MonoBehaviour
                     //starts playing sound through the audio manager. Only plays one sound at a time.
                     audioManager.PlayDialogueAudio();
                     //plays the animation associated with the first sentence of dialogue.
-                    NPCAnimator.Play(currentAnimations.Dequeue());
+                    if (NPCAnimator != null)
+                    {
+                        NPCAnimator.Play(currentAnimations.Dequeue());
+                    }
                 }
                 else
                 {
-                    NPCAnimator.Play(dialogue.conversations[conversationNumber].closingAnimation);
+                    if (NPCAnimator != null)
+                    {
+                        NPCAnimator.Play(dialogue.conversations[conversationNumber].closingAnimation);
+                    }
                     dialogueManager.StartDialogue(dialogue.characterName, newSentences);
                     PlayDialogue();
                 }

@@ -196,7 +196,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 118667849}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -409,7 +409,6 @@ GameObject:
   - component: {fileID: 444439191}
   - component: {fileID: 444439190}
   - component: {fileID: 444439189}
-  - component: {fileID: 444439188}
   - component: {fileID: 444439192}
   - component: {fileID: 444439187}
   m_Layer: 0
@@ -647,25 +646,6 @@ MonoBehaviour:
   playingDialogue: 0
   playingResponse: 0
   responseNumber: 1
---- !u!95 &444439188
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 444439186}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ff60bef76cb71e4408ffe8b6b024c882, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!61 &444439189
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1707,7 +1687,7 @@ PrefabInstance:
     - target: {fileID: 8813041365154144152, guid: d12dc474a9f3a46d8a35e90fd00366fb,
         type: 3}
       propertyPath: generalSounds.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8813041365154144152, guid: d12dc474a9f3a46d8a35e90fd00366fb,
         type: 3}

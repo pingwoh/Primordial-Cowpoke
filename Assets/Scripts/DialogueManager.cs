@@ -35,7 +35,6 @@ public class DialogueManager : MonoBehaviour
         nameText.text = NPCName;
         enterText.text = "Press Enter";
         sentences.Clear();
-        Debug.Log(newSentences.Length);
         if (newSentences.Length > 0)
         {
             foreach (string sentence in newSentences)
