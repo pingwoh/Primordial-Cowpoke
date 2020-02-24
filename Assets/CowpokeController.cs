@@ -20,7 +20,21 @@ public class CowpokeController : MonoBehaviour
     public GameObject teleporterOne;
     public GameObject teleporterTwo;
 
-    public SpriteRenderer characterSprite;
+    private SpriteRenderer characterSprite {get { return GetComponent<SpriteRenderer>(); } }
+
+    private Animator playerAnimator {get { return GetComponent<Animator>(); } }
+
+    private Rigidbody2D playerRB {get { return GetComponent<Rigidbody2D>(); } }
+
+    private int movementSpeed = 15;
+    private int maxMovementSpeed = 15;
+
+    private bool firstPress = true;
+
+    private void Awake()
+    {
+        playerAnimator.SetTrigger("Asleep");
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -31,36 +45,75 @@ public class CowpokeController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+        if (firstPress)
         {
-            if (groundCheck == true)
+            if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
             {
-                GetComponent<Rigidbody2D>().AddForce(Vector2.up * 300);
+                playerAnimator.SetTrigger("WakeUp");
+                //starts timer to let player move.
+                StartCoroutine(WakeUp());
             }
-            groundCheck = false;
+
         }
-        else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+        //won't play unless the player has fully woken up
+        else
         {
-            GetComponent<Rigidbody2D>().AddForce(Vector2.right * 20);
-            if (characterSprite != null)
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
             {
-                characterSprite.flipX = true;
+                if (groundCheck == true)
+                {
+                    GetComponent<Rigidbody2D>().AddForce(Vector2.up * 300);
+                }
+                groundCheck = false;
+            }
+            else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+            {
+                GetComponent<Rigidbody2D>().AddForce(Vector2.right * 100);
+
+                playerAnimator.SetBool("Walking", true);
+                playerAnimator.SetBool("Sitting", false);
+
+                if (characterSprite != null)
+                {
+                    characterSprite.flipX = true;
+                }
+            }
+            else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+            {
+                GetComponent<Rigidbody2D>().AddForce(Vector2.left * 100);
+
+                playerAnimator.SetBool("Walking", true);
+                playerAnimator.SetBool("Sitting", false);
+
+                if (characterSprite != null)
+                {
+                    characterSprite.flipX = false;
+                }
+            }
+            else
+            {
+                playerAnimator.SetBool("Walking", false);
+                playerAnimator.SetBool("Sitting", false);
             }
         }
-        else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+
+        //limits maximum movement speed
+        if(Mathf.Abs(playerRB.velocity.x) > maxMovementSpeed)
         {
-            GetComponent<Rigidbody2D>().AddForce(Vector2.left * 20);
-            if (characterSprite != null)
-            {
-                characterSprite.flipX = false;
-            }
+            playerRB.velocity = new Vector2(Mathf.Sign(playerRB.velocity.x) * maxMovementSpeed, playerRB.velocity.y);
         }
-        else if (GetComponent<Rigidbody2D>().velocity.y == 0)
+
+        /*if (GetComponent<Rigidbody2D>().velocity.y == 0)
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        }
+        }*/
+    }
+    private IEnumerator WakeUp()
+    {
+        yield return new WaitForSeconds(1.5f);
+        firstPress = false;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
