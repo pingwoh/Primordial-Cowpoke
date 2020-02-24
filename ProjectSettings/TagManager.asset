@@ -9,8 +9,11 @@ TagManager:
   - NPC
   - Sheriff
   - Barricade
-  - Teleport
-  - Teleport2
+  - LevelOneLeave
+  - LevelOneReturn
+  - LevelTwoLeave
+  - LevelTwoReturn
+  - LevelThree
   layers:
   - Default
   - TransparentFX

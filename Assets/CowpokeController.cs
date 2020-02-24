@@ -6,25 +6,26 @@ using UnityEngine.UI;
 
 public class CowpokeController : MonoBehaviour
 {
-    public int health;
-
-    public bool hasKey;
+    bool hasKey;
     bool groundCheck;
-    bool endState;
+
     public GameObject Barricade;
     public GameObject Sheriff;
+    public GameObject Light;
 
-    public Text healthText;
-    public Text coins;
 
-    public GameObject teleporterOne;
-    public GameObject teleporterTwo;
+    public GameObject levelOneLeave;
+    public GameObject levelOneReturn;
+    public GameObject levelOne;
+    public GameObject levelTwoLeave;
+    public GameObject levelTwoReturn;
+    public GameObject levelThree;
 
-    private SpriteRenderer characterSprite {get { return GetComponent<SpriteRenderer>(); } }
+    private SpriteRenderer characterSprite { get { return GetComponent<SpriteRenderer>(); } }
 
-    private Animator playerAnimator {get { return GetComponent<Animator>(); } }
+    private Animator playerAnimator { get { return GetComponent<Animator>(); } }
 
-    private Rigidbody2D playerRB {get { return GetComponent<Rigidbody2D>(); } }
+    private Rigidbody2D playerRB { get { return GetComponent<Rigidbody2D>(); } }
 
     private int movementSpeed = 15;
     private int maxMovementSpeed = 15;
@@ -41,7 +42,6 @@ public class CowpokeController : MonoBehaviour
     {
         groundCheck = true;
         hasKey = false;
-        endState = false;
     }
 
     // Update is called once per frame
@@ -49,13 +49,12 @@ public class CowpokeController : MonoBehaviour
     {
         if (firstPress)
         {
-            if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
             {
                 playerAnimator.SetTrigger("WakeUp");
                 //starts timer to let player move.
                 StartCoroutine(WakeUp());
             }
-
         }
         //won't play unless the player has fully woken up
         else
@@ -92,15 +91,20 @@ public class CowpokeController : MonoBehaviour
                     characterSprite.flipX = false;
                 }
             }
+            else if (Input.GetKey(KeyCode.Q))
+            {
+                playerAnimator.SetBool("Sunny", true);
+            }
             else
             {
                 playerAnimator.SetBool("Walking", false);
                 playerAnimator.SetBool("Sitting", false);
+                playerAnimator.SetBool("Sunny", false);
             }
         }
 
         //limits maximum movement speed
-        if(Mathf.Abs(playerRB.velocity.x) > maxMovementSpeed)
+        if (Mathf.Abs(playerRB.velocity.x) > maxMovementSpeed)
         {
             playerRB.velocity = new Vector2(Mathf.Sign(playerRB.velocity.x) * maxMovementSpeed, playerRB.velocity.y);
         }
@@ -118,50 +122,67 @@ public class CowpokeController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-       
+
         if (other.CompareTag("Sheriff"))
         {
             hasKey = true;
             Destroy(other.gameObject);
             Instantiate(Resources.Load("Particle System"), other.transform.position, Quaternion.identity);
-
         }
         if (other.CompareTag("Barricade") && hasKey == true)
         {
             Destroy(other.gameObject);
             Instantiate(Resources.Load("ChestSound"), other.transform.position, Quaternion.identity);
-            endState = true;
         }
         if (other.CompareTag("Light"))
         {
-            Instantiate(Resources.Load("sunlightEffect"), other.transform.position, Quaternion.identity);
+            if (playerAnimator.GetBool("Sunny") == false)
+            {
+                Instantiate(Resources.Load("sunlightEffect"), other.transform.position, Quaternion.identity);
+            }
             Debug.Log("AAAH OUCH THE SUN");
-
         }
-       
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Teleport") && Input.GetKeyDown(KeyCode.E))
-        {
-            gameObject.transform.position = teleporterTwo.transform.position;
-        }
-        if (other.CompareTag("Teleport2") && Input.GetKeyDown(KeyCode.E))
-        {
-            gameObject.transform.position = teleporterOne.transform.position;
-        }
-        //if (other.CompareTag("EXIT") && Input.GetKeyDown(KeyCode.E) && (endState == true))
-       // {
-       //     SceneManager.LoadScene(1);
-       // }
         if (other.CompareTag("Ground"))
         {
             groundCheck = true;
         }
         if (other.CompareTag("Light"))
         {
-          
+            if (playerAnimator.GetBool("Sunny") == true)
+            {
+                Light.GetComponent<BoxCollider2D>().enabled = false;
+            }
+            else
+            {
+                Light.GetComponent<BoxCollider2D>().enabled = true;
+            }
+        }
+
+
+
+        if (other.CompareTag("LevelOneLeave") && Input.GetKeyDown(KeyCode.E))
+        {
+            gameObject.transform.position = levelOneReturn.transform.position;
+        }
+        if (other.CompareTag("LevelOneReturn") && Input.GetKeyDown(KeyCode.E))
+        {
+            gameObject.transform.position = levelOne.transform.position;
+        }
+        if (other.CompareTag("LevelTwoLeave") && Input.GetKeyDown(KeyCode.E))
+        {
+            gameObject.transform.position = levelTwoReturn.transform.position;
+        }
+        if (other.CompareTag("LevelTwoReturn") && Input.GetKeyDown(KeyCode.E))
+        {
+            gameObject.transform.position = levelTwoLeave.transform.position;
+        }
+        if (other.CompareTag("LevelThree") && Input.GetKeyDown(KeyCode.E))
+        {
+            //this will be for triggering the end thing
         }
     }
 }
