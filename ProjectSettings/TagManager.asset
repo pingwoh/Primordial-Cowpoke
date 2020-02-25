@@ -16,6 +16,8 @@ TagManager:
   - LevelThree
   - Vampire
   - Sizzle
+  - E
+  - Q
   layers:
   - Default
   - TransparentFX

@@ -148,9 +148,6 @@ public class CowpokeController : MonoBehaviour
     {
         if (other.CompareTag("Light"))
         {
-            tutorial.SetActive(true); //turn on the help box
-            tutorial.GetComponentInChildren<Text>().text = "'Q'"; //tell player hint
-     
             if (playerAnimator.GetBool("Sunny") == false)
             {
                 Instantiate(Resources.Load("sunlightEffect"), other.transform.position, Quaternion.identity);
@@ -158,19 +155,32 @@ public class CowpokeController : MonoBehaviour
             Debug.Log("AAAH OUCH THE SUN");
             Instantiate(Resources.Load("SizzleSound"), other.transform.position, Quaternion.identity);
         }
-        if(other.CompareTag("LevelOneLeave"))
+        if(other.CompareTag("E"))
         {
             tutorial.SetActive(true); //turn on the help box
             tutorial.GetComponentInChildren<Text>().text = "'E'"; //tell player hint
         }
+        if(other.CompareTag("Q"))
+        {
+            tutorial.SetActive(true); //turn on the help box
+            tutorial.GetComponentInChildren<Text>().text = "'Q'"; //tell player hint
+        }
     }
+
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Light"))
         {
             Destroy(GameObject.FindGameObjectWithTag("Sizzle"));
+        }
+        if(other.CompareTag("Q")) //if they leave the light
+        {
             tutorial.SetActive(false); //turn off help box
+        }
+        if(other.CompareTag("E")) //if they aren't at the end / leave that box
+        {
+            tutorial.SetActive(false); //turn off the help box
         }
     }
 
