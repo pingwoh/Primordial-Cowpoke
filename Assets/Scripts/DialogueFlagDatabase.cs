@@ -16,6 +16,10 @@ public class DialogueFlagDatabase
             false
         },
         {
+            "ExampleFlag",
+            false
+        },
+        {
             "NextConvo",
             false
         },
