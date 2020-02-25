@@ -28,15 +28,24 @@ public class DialogueEditor : Editor
     GUIStyle g;
     GUIStyle r;
 
+    int numberOfConversations = 0;
     void OnEnable()
     {
         NPCDialogueScript = (NPCDialogue)target;
         dialogue = NPCDialogueScript.dialogue;
 
+        if (dialogue.characterName == null)
+        {
+            dialogue.characterName = "";
+        }
+        if (dialogue.conversations == null)
+        {
+            dialogue.conversations = new List<Conversation>();
+        }
+
         characterName = dialogue.characterName;
         useCustomName = dialogue.customNameToggle;
         conversations = dialogue.conversations;
-
     }
 
     public override void OnInspectorGUI()
@@ -95,7 +104,7 @@ public class DialogueEditor : Editor
         }
         else
         {
-            characterName = NPCDialogueScript.gameObject.name;
+            characterName = NPCDialogueScript.NPCName;
             EditorGUILayout.LabelField("Character Name: " + characterName);
         }
         dialogue.characterName = characterName;
@@ -110,7 +119,8 @@ public class DialogueEditor : Editor
         }
 
         //how many conversations of dialogue this npc has
-        int numberOfConversations = conversations.Count;
+        numberOfConversations = conversations.Count;
+
         numberOfConversations = EditorGUILayout.IntField("Number of Conversations:", numberOfConversations);
 
         if (numberOfConversations < 0)
@@ -202,7 +212,7 @@ public class DialogueEditor : Editor
                 conversation.conversationName = EditorGUILayout.TextField("Conversation Name:", conversation.conversationName);
 
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("Required Trigger:");
+                EditorGUILayout.LabelField("Required Flag:");
                 conversation.requiredFlag = checkFlags(conversation.requiredFlag);
                 conversation.requiredFlag = flagNames[EditorGUILayout.Popup(System.Array.IndexOf(flagNames, conversation.requiredFlag), flagNames)];
                 EditorGUILayout.EndHorizontal();

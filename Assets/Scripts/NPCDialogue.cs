@@ -7,6 +7,7 @@ using System.Reflection;
 public class NPCDialogue : MonoBehaviour
 {
     public Dialogue dialogue;
+    public string NPCName {get { return gameObject.name; } }
     
     //animator attached to the NPC
     private Animator NPCAnimator { get { return GetComponent<Animator>(); } }
@@ -95,21 +96,21 @@ public class NPCDialogue : MonoBehaviour
                     //no longer displaying response screen
                     playingResponse = false;
                     //stops the loop
-                    MonoBehaviour currentScript = activatedResponse.outcomes.eventScript;
-                    string methodString = activatedResponse.outcomes.eventMethod;
-                    MethodInfo currentMethod = currentScript.GetType().GetMethod(methodString);
-                    currentMethod.Invoke(currentScript, null);
+
                     if (activatedResponse.outcomes.queueNextConversation)
                     {
                         conversationNumber++;
                         playerController.canMove = true;
-                        return;
                     }
                     else
                     {
                         playerController.canMove = true;
-                        return;
                     }
+                    MonoBehaviour currentScript = activatedResponse.outcomes.eventScript;
+                    string methodString = activatedResponse.outcomes.eventMethod;
+                    MethodInfo currentMethod = currentScript.GetType().GetMethod(methodString);
+                    currentMethod.Invoke(currentScript, null);
+                    return;
                 }
             }
         }
@@ -178,7 +179,10 @@ public class NPCDialogue : MonoBehaviour
                 //stops the previous sound playing through the audio manager
                 audioManager.StopDialogueAudio();
                 //plays the current sound sentence's
-                audioManager.PlayDialogueAudio();
+                if (dialogue.conversations[conversationNumber].hasAudio)
+                {
+                    audioManager.PlayDialogueAudio();
+                }
                 //plays the NPC's animation associated with the sentence being displayed.
                 if (NPCAnimator != null)
                 {
@@ -225,14 +229,20 @@ public class NPCDialogue : MonoBehaviour
                             currentAnimations.Enqueue(NPCAnimator.runtimeAnimatorController.animationClips[statement.animationSelection].name);
                         }
                         //gets all sounds
-                        audioManager.dialogueSounds.Enqueue(statement.audioProperties);
+                        if (dialogue.conversations[conversationNumber].hasAudio)
+                        {
+                            audioManager.dialogueSounds.Enqueue(statement.audioProperties);
+                        }
                         newSentences[counter] = statement.statementText;
                         counter++;
                     }
                     //starts displaying dialogue through the dialoguemanager. Takes the NPC's name and its current sentences
                     dialogueManager.StartDialogue(dialogue.characterName, newSentences);
                     //starts playing sound through the audio manager. Only plays one sound at a time.
-                    audioManager.PlayDialogueAudio();
+                    if (dialogue.conversations[conversationNumber].hasAudio)
+                    {
+                        audioManager.PlayDialogueAudio();
+                    }
                     //plays the animation associated with the first sentence of dialogue.
                     if (NPCAnimator != null)
                     {
