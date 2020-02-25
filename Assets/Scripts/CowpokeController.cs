@@ -22,6 +22,8 @@ public class CowpokeController : MonoBehaviour
     public GameObject levelTwoReturn;
     public GameObject levelThree;
 
+    public GameObject tutorial;
+
     private SpriteRenderer characterSprite { get { return GetComponent<SpriteRenderer>(); } }
 
     private Animator playerAnimator { get { return GetComponent<Animator>(); } }
@@ -146,12 +148,20 @@ public class CowpokeController : MonoBehaviour
     {
         if (other.CompareTag("Light"))
         {
+            tutorial.SetActive(true); //turn on the help box
+            tutorial.GetComponentInChildren<Text>().text = "'Q'"; //tell player hint
+     
             if (playerAnimator.GetBool("Sunny") == false)
             {
                 Instantiate(Resources.Load("sunlightEffect"), other.transform.position, Quaternion.identity);
             }
             Debug.Log("AAAH OUCH THE SUN");
             Instantiate(Resources.Load("SizzleSound"), other.transform.position, Quaternion.identity);
+        }
+        if(other.CompareTag("LevelOneLeave"))
+        {
+            tutorial.SetActive(true); //turn on the help box
+            tutorial.GetComponentInChildren<Text>().text = "'E'"; //tell player hint
         }
     }
 
@@ -160,6 +170,7 @@ public class CowpokeController : MonoBehaviour
         if (other.CompareTag("Light"))
         {
             Destroy(GameObject.FindGameObjectWithTag("Sizzle"));
+            tutorial.SetActive(false); //turn off help box
         }
     }
 
@@ -193,6 +204,7 @@ public class CowpokeController : MonoBehaviour
         if (other.CompareTag("LevelOneLeave") && Input.GetKeyDown(KeyCode.E))
         {
             gameObject.transform.position = levelOneReturn.transform.position;
+            tutorial.SetActive(false); //turn off the help box
         }
         if (other.CompareTag("LevelOneReturn") && Input.GetKeyDown(KeyCode.E))
         {
