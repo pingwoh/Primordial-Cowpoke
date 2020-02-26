@@ -24,6 +24,10 @@ public class Conversation
     public Outcomes outcomes;
     public DisplayToggle hasResponse;
     public List<Response> responses;
+    public DisplayToggle timerToggle;
+    public float timerValue;
+    public bool timerTriggerNextConversation;
+    public Outcomes timerOutcomes;
 }
 
 [System.Serializable]
