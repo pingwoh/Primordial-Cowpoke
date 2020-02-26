@@ -266,17 +266,6 @@ public class NPCDialogue : MonoBehaviour
             //gets current conversation number in case there aren't any conversations that work with current triggers.
             int startingConversationNumber = conversationNumber;
             //iterates through conversations attached to the dialogue script until one matches the triggers attached to the player
-            while (playerFlags[dialogue.conversations[conversationNumber].skipFlag] == true && dialogue.conversations[conversationNumber].skipFlag != "None")
-            {
-                conversationNumber++;
-                //detects if there aren't any more conversations and none of them have matched with the player's triggers
-                if (conversationNumber > dialogue.conversations.Count - 1)
-                {
-                    //no next conversation because nothing matched
-                    hasNextConverstaion = false;
-                    break;
-                }
-            }
             while (playerFlags[dialogue.conversations[conversationNumber].requiredFlag] == false)
             {
                 conversationNumber++;
