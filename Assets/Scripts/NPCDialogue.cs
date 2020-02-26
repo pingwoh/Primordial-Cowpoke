@@ -212,7 +212,10 @@ public class NPCDialogue : MonoBehaviour
                     playingDialogue = false;
                     playingResponse = true;
                     timerEnded = false;
-                    StartCoroutine(ResponseTimer(currentConversation.timerValue));
+                    if (dialogue.conversations[conversationNumber].timerToggle.toggleBool)
+                    {
+                        StartCoroutine(ResponseTimer(currentConversation.timerValue));
+                    }
                 }
                 //runs if the NPC is not set to have any responses.
                 else if (!currentConversation.hasResponse.toggleBool && !currentConversation.outcomes.triggerEvent.toggleBool)
