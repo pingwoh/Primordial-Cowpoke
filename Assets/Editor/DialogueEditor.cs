@@ -140,6 +140,7 @@ public class DialogueEditor : Editor
                     },
                     conversationName = "Conversation " + (conversations.Count + 1),
                     requiredFlag = "None",
+                    skipFlag = "None",
                     hasAudio = false,
                     statements = new List<Statement> {
                         new Statement {
@@ -235,6 +236,12 @@ public class DialogueEditor : Editor
                 EditorGUILayout.LabelField("Required Flag:");
                 conversation.requiredFlag = checkFlags(conversation.requiredFlag);
                 conversation.requiredFlag = flagNames[EditorGUILayout.Popup(System.Array.IndexOf(flagNames, conversation.requiredFlag), flagNames)];
+                EditorGUILayout.EndHorizontal();
+
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField("Skip if has Flag:");
+                conversation.skipFlag = checkFlags(conversation.skipFlag);
+                conversation.skipFlag = flagNames[EditorGUILayout.Popup(System.Array.IndexOf(flagNames, conversation.skipFlag), flagNames)];
                 EditorGUILayout.EndHorizontal();
 
                 conversation.hasAudio = EditorGUILayout.Toggle("Has Audio?", conversation.hasAudio);
