@@ -7,8 +7,8 @@ using System.Reflection;
 public class NPCDialogue : MonoBehaviour
 {
     public Dialogue dialogue;
-    public string NPCName {get { return gameObject.name; } }
-    
+    public string NPCName { get { return gameObject.name; } }
+
     //animator attached to the NPC
     private Animator NPCAnimator { get { return GetComponent<Animator>(); } }
     //list of animations to play during dialogue
@@ -21,14 +21,15 @@ public class NPCDialogue : MonoBehaviour
     //audioManager in the scene
     private AudioManager audioManager { get { return FindObjectOfType<AudioManager>(); } }
     //player's dictionary for their triggers
-    private Dictionary<string, bool> playerFlags { get{ return playerManager.playerFlags ; } }
+    private Dictionary<string, bool> playerFlags { get { return playerManager.playerFlags; } }
 
-    private CowpokeController playerController {get { return FindObjectOfType<CowpokeController>(); } }
+    private CowpokeController playerController { get { return FindObjectOfType<CowpokeController>(); } }
 
     public bool playingDialogue = false;
     public bool playingResponse = false;
     private int conversationNumber = 0;
     public int responseNumber;
+    public bool timerEnded = false;
 
     void Start()
     {
@@ -50,11 +51,73 @@ public class NPCDialogue : MonoBehaviour
         //starts by checking if a response is currently playing. If not, checks if dialogue is currently playing.
         //If neither is playing, 
 
+        if (timerEnded)
+        {
+            timerEnded = dialogueManager.EndResponse();
+            playerFlags[dialogue.conversations[conversationNumber].timerOutcomes.setFlag] = true;
+            Outcomes timerOutcomes = dialogue.conversations[conversationNumber].timerOutcomes;
+
+            //runs if the dialogue script says the current conversation should trigger the next conversation
+            if (dialogue.conversations[conversationNumber].timerTriggerNextConversation && !timerOutcomes.triggerEvent.toggleBool)
+            {
+                //moves to the next conversation
+                conversationNumber++;
+                //no longer displaying the response screen
+                playingResponse = false;
+            }
+            //runs if dialogue script says current conversation shouldn't trigger next conversation
+            else if (!dialogue.conversations[conversationNumber].timerTriggerNextConversation && !timerOutcomes.triggerEvent.toggleBool)
+            {
+                //Ends the dialogue because response is over and no new dialogue is being triggered.
+                dialogueManager.EndDialogue();
+                //no longer displaying response screen
+                playingResponse = false;
+                if (timerOutcomes.queueNextConversation)
+                {
+                    conversationNumber++;
+                    playerController.canMove = true;
+                    return;
+                }
+                else
+                {
+                    //stops the loop
+                    playerController.canMove = true;
+                    return;
+                }
+
+            }
+            else if (timerOutcomes.triggerEvent.toggleBool)
+            {
+                //Ends the dialogue because response is over and no new dialogue is being triggered.
+                dialogueManager.EndDialogue();
+                //no longer displaying response screen
+                playingResponse = false;
+                //stops the loop
+
+                if (timerOutcomes.queueNextConversation)
+                {
+                    conversationNumber++;
+                    playerController.canMove = true;
+                }
+                else
+                {
+                    playerController.canMove = true;
+                }
+                MonoBehaviour currentScript = timerOutcomes.eventScript;
+                string methodString = timerOutcomes.eventMethod;
+                MethodInfo currentMethod = currentScript.GetType().GetMethod(methodString);
+                currentMethod.Invoke(currentScript, null);
+                return;
+            }
+        }
+
         //only runs if the NPC is currently displaying the response screen of dialogue
         if (playingResponse)
         {
             //returns false once the dialogue manager runs through its EndResponse() method.
             playingResponse = dialogueManager.EndResponse();
+            StopAllCoroutines();
+            timerEnded = false;
             //should always return false but here just in case.
             if (playingResponse == false)
             {
@@ -69,7 +132,7 @@ public class NPCDialogue : MonoBehaviour
                     playingResponse = false;
                 }
                 //runs if dialogue script says current conversation shouldn't trigger next conversation
-                else if(!activatedResponse.triggerNextConversation && !activatedResponse.outcomes.triggerEvent.toggleBool)
+                else if (!activatedResponse.triggerNextConversation && !activatedResponse.outcomes.triggerEvent.toggleBool)
                 {
                     //Ends the dialogue because response is over and no new dialogue is being triggered.
                     dialogueManager.EndDialogue();
@@ -148,9 +211,11 @@ public class NPCDialogue : MonoBehaviour
                     //not playing dialogue anymore because responses are playing
                     playingDialogue = false;
                     playingResponse = true;
+                    timerEnded = false;
+                    StartCoroutine(ResponseTimer(currentConversation.timerValue));
                 }
                 //runs if the NPC is not set to have any responses.
-                else if(!currentConversation.hasResponse.toggleBool && !currentConversation.outcomes.triggerEvent.toggleBool)
+                else if (!currentConversation.hasResponse.toggleBool && !currentConversation.outcomes.triggerEvent.toggleBool)
                 {
                     if (currentConversation.outcomes.queueNextConversation)
                     {
@@ -191,7 +256,7 @@ public class NPCDialogue : MonoBehaviour
             }
         }
         //only runs if the NPC doesn't have any dialogue or responses on the screen.
-        else if(playingResponse == false)
+        else if (playingResponse == false)
         {
             //tracks if the NPC can play another conversation based on their current conversation number and the player's current triggers
             bool hasNextConverstaion = true;
@@ -202,11 +267,11 @@ public class NPCDialogue : MonoBehaviour
             {
                 conversationNumber++;
                 //detects if there aren't any more conversations and none of them have matched with the player's triggers
-                if(conversationNumber > dialogue.conversations.Count - 1)
+                if (conversationNumber > dialogue.conversations.Count - 1)
                 {
                     //no next conversation because nothing matched
                     hasNextConverstaion = false;
-                    break;  
+                    break;
                 }
             }
             //runs if there was a match between conversation and trigger
@@ -224,7 +289,7 @@ public class NPCDialogue : MonoBehaviour
                     foreach (Statement statement in dialogue.conversations[conversationNumber].statements)
                     {
                         //gets all animations
-                        if(NPCAnimator != null)
+                        if (NPCAnimator != null)
                         {
                             currentAnimations.Enqueue(NPCAnimator.runtimeAnimatorController.animationClips[statement.animationSelection].name);
                         }
@@ -276,4 +341,10 @@ public class NPCDialogue : MonoBehaviour
 
     }
 
+    IEnumerator ResponseTimer(float timerValue)
+    {
+        yield return new WaitForSeconds(timerValue);
+        timerEnded = true;
+        PlayDialogue();
+    }
 }
