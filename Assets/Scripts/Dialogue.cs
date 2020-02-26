@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor.AnimatedValues;
+#endif
 
 [System.Serializable]
 public class Dialogue
@@ -62,5 +64,7 @@ public class Outcomes
 public class DisplayToggle
 {
     public bool toggleBool;
+#if UNITY_EDITOR
     public AnimBool toggleAnim;
+#endif
 }
