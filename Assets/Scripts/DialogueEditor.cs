@@ -294,7 +294,8 @@ public class DialogueEditor : Editor
                         statement.audioProperties.volume = EditorGUILayout.Slider("Audio Volume:", statement.audioProperties.volume, 0, 1);
                     }
 
-                    statement.statementText = EditorGUILayout.TextField("Statement Text:", statement.statementText);
+                    EditorGUILayout.LabelField("Statement Text:");
+                    statement.statementText = EditorGUILayout.TextArea(statement.statementText);
 
                     EditorGUI.indentLevel = 0;
                     EditorGUILayout.LabelField("\n");
@@ -428,7 +429,8 @@ public class DialogueEditor : Editor
                             response.triggerNextConversation = EditorGUILayout.Toggle("Trigger Next Conversation?", response.triggerNextConversation);
                         }
 
-                        response.responseText = EditorGUILayout.TextField("Response Text:", response.responseText);
+                        EditorGUILayout.LabelField("Response Text:");
+                        response.responseText = EditorGUILayout.TextArea(response.responseText);
 
                         EditorGUILayout.LabelField("\n");
                         EditorGUI.indentLevel--;
