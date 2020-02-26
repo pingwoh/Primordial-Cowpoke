@@ -20,7 +20,6 @@ public class Conversation
     public DisplayToggle showConversation;
     public string conversationName;
     public string requiredFlag;
-    public string skipFlag;
     public bool hasAudio;
     public List<Statement> statements;
     public int closingAnimation;

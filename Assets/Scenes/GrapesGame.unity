@@ -275,7 +275,6 @@ MonoBehaviour:
           m_Value: 1
       conversationName: Introduction
       requiredFlag: None
-      skipFlag: None
       hasAudio: 0
       statements:
       - animationSelection: 3
@@ -373,7 +372,7 @@ MonoBehaviour:
       timerValue: 0
       timerTriggerNextConversation: 0
       timerOutcomes:
-        setFlag: 
+        setFlag: None
         queueNextConversation: 0
         triggerEvent:
           toggleBool: 0
@@ -392,7 +391,6 @@ MonoBehaviour:
           m_Value: 1
       conversationName: Ignored
       requiredFlag: None
-      skipFlag: None
       hasAudio: 0
       statements:
       - animationSelection: 0
@@ -466,7 +464,6 @@ MonoBehaviour:
           m_Value: 1
       conversationName: Return to Brittney
       requiredFlag: None
-      skipFlag: None
       hasAudio: 0
       statements:
       - animationSelection: 0
@@ -575,11 +572,9 @@ GameObject:
   - component: {fileID: 84777846}
   - component: {fileID: 84777848}
   - component: {fileID: 84777847}
-  - component: {fileID: 84777851}
-  - component: {fileID: 84777850}
   - component: {fileID: 84777849}
   m_Layer: 0
-  m_Name: Room 3 Barricade
+  m_Name: Barricade
   m_TagString: Barricade
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -661,7 +656,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.11302745, y: -1.3187423}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -672,7 +667,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.33, y: 5.91}
+  m_Size: {x: 6.3096466, y: 8.547485}
   m_EdgeRadius: 0
 --- !u!114 &84777847
 MonoBehaviour:
@@ -691,14 +686,13 @@ MonoBehaviour:
     characterName: 
     conversations:
     - showConversation:
-        toggleBool: 1
+        toggleBool: 0
         toggleAnim:
-          m_Target: 1
+          m_Target: 0
           speed: 2
-          m_Value: 1
+          m_Value: 0
       conversationName: Flavor Text
       requiredFlag: None
-      skipFlag: None
       hasAudio: 0
       statements:
       - animationSelection: 0
@@ -772,7 +766,6 @@ MonoBehaviour:
           m_Value: 1
       conversationName: End Screens
       requiredFlag: Ending
-      skipFlag: None
       hasAudio: 0
       statements: []
       closingAnimation: 0
@@ -804,23 +797,9 @@ MonoBehaviour:
               m_Target: 1
               speed: 2
               m_Value: 1
-          eventObject: {fileID: 0}
-          eventScript: {fileID: 0}
-          eventMethod: 
-        responseText: Chicken
-        triggerNextConversation: 0
-      - outcomes:
-          setFlag: None
-          queueNextConversation: 0
-          triggerEvent:
-            toggleBool: 1
-            toggleAnim:
-              m_Target: 1
-              speed: 2
-              m_Value: 1
-          eventObject: {fileID: 0}
-          eventScript: {fileID: 0}
-          eventMethod: 
+          eventObject: {fileID: 84777843}
+          eventScript: {fileID: 84777849}
+          eventMethod: BloodlustEnd
         responseText: Bee
         triggerNextConversation: 0
       - outcomes:
@@ -832,31 +811,31 @@ MonoBehaviour:
               m_Target: 1
               speed: 2
               m_Value: 1
-          eventObject: {fileID: 0}
-          eventScript: {fileID: 0}
-          eventMethod: 
-        responseText: Creeper
+          eventObject: {fileID: 84777843}
+          eventScript: {fileID: 84777849}
+          eventMethod: VampKillEnd
+        responseText: Chicken
         triggerNextConversation: 0
       timerToggle:
-        toggleBool: 0
+        toggleBool: 1
         toggleAnim:
-          m_Target: 0
+          m_Target: 1
           speed: 2
-          m_Value: 0
-      timerValue: 0
+          m_Value: 1
+      timerValue: 20
       timerTriggerNextConversation: 0
       timerOutcomes:
         setFlag: None
         queueNextConversation: 0
         triggerEvent:
-          toggleBool: 0
+          toggleBool: 1
           toggleAnim:
-            m_Target: 0
+            m_Target: 1
             speed: 2
-            m_Value: 0
-        eventObject: {fileID: 0}
-        eventScript: {fileID: 0}
-        eventMethod: 
+            m_Value: 1
+        eventObject: {fileID: 84777843}
+        eventScript: {fileID: 84777849}
+        eventMethod: NeutralEnd
   playingDialogue: 0
   playingResponse: 0
   responseNumber: 0
@@ -882,33 +861,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 84777843}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cdef1e5c1c404a44abf998a32bbd78f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8772a7a7ddf28e445bab82f00b12c3c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &84777850
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 84777843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 662c81db5e7487947bff9fc60a4ee0a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &84777851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 84777843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeb337ae116f9a54982bdd4b8e4e9b98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  BloodlustAnimator: {fileID: 1134747671}
+  NeutralAnimator: {fileID: 1682162651}
+  VampKillAnimator: {fileID: 669672454}
 --- !u!1 &110820427
 GameObject:
   m_ObjectHideFlags: 0
@@ -1230,14 +1188,13 @@ MonoBehaviour:
     characterName: Player
     conversations:
     - showConversation:
-        toggleBool: 1
+        toggleBool: 0
         toggleAnim:
-          m_Target: 1
+          m_Target: 0
           speed: 2
-          m_Value: 1
+          m_Value: 0
       conversationName: Wakeup
       requiredFlag: None
-      skipFlag: None
       hasAudio: 0
       statements:
       - animationSelection: 0
@@ -2058,7 +2015,6 @@ MonoBehaviour:
           m_Value: 1
       conversationName: Flavor Text
       requiredFlag: None
-      skipFlag: None
       hasAudio: 0
       statements:
       - animationSelection: 0
@@ -2383,6 +2339,99 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 214195923}
   smoothTime: 0.1
+--- !u!1 &669672454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 669672455}
+  - component: {fileID: 669672458}
+  - component: {fileID: 669672457}
+  - component: {fileID: 669672456}
+  m_Layer: 5
+  m_Name: Murder
+  m_TagString: TownEnd
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &669672455
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669672454}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1578486013}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &669672456
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669672454}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d89513692c09fde49b2f84d49584dd5e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &669672457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669672454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 22a5b4bd30ee9f44590b4fd7faca29bc, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &669672458
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669672454}
+  m_CullTransparentMesh: 0
 --- !u!1 &735679680
 GameObject:
   m_ObjectHideFlags: 0
@@ -2983,6 +3032,99 @@ Transform:
   m_Father: {fileID: 1153974435}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1134747671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1134747672}
+  - component: {fileID: 1134747675}
+  - component: {fileID: 1134747674}
+  - component: {fileID: 1134747673}
+  m_Layer: 5
+  m_Name: Bloodlust
+  m_TagString: VampireEnd
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1134747672
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134747671}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1578486013}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &1134747673
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134747671}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f9760171219fab04081298ef7a9d1649, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1134747674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134747671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 4d3b233d42a97534cb7614ca4e0858fd, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1134747675
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134747671}
+  m_CullTransparentMesh: 0
 --- !u!1 &1153974433
 GameObject:
   m_ObjectHideFlags: 0
@@ -3436,7 +3578,6 @@ MonoBehaviour:
           m_Value: 1
       conversationName: Pre-Barricade
       requiredFlag: None
-      skipFlag: Barricade
       hasAudio: 0
       statements:
       - animationSelection: 0
@@ -3451,7 +3592,7 @@ MonoBehaviour:
       closingAnimation: 0
       outcomes:
         setFlag: None
-        queueNextConversation: 0
+        queueNextConversation: 1
         triggerEvent:
           toggleBool: 0
           toggleAnim:
@@ -3510,7 +3651,6 @@ MonoBehaviour:
           m_Value: 1
       conversationName: Key Pickup
       requiredFlag: Barricade
-      skipFlag: None
       hasAudio: 1
       statements:
       - animationSelection: 0
@@ -4223,6 +4363,9 @@ RectTransform:
   - {fileID: 1165714201}
   - {fileID: 1684393453}
   - {fileID: 1249311498}
+  - {fileID: 1134747672}
+  - {fileID: 1682162652}
+  - {fileID: 669672455}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4391,6 +4534,99 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1682162651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1682162652}
+  - component: {fileID: 1682162655}
+  - component: {fileID: 1682162654}
+  - component: {fileID: 1682162653}
+  m_Layer: 5
+  m_Name: Neutral
+  m_TagString: MiddleEnd
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1682162652
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682162651}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1578486013}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &1682162653
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682162651}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 19a446fb657533f4daf8487e04a478e9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1682162654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682162651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: ec97541085d915b4d8c160695bfdc375, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1682162655
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682162651}
+  m_CullTransparentMesh: 0
 --- !u!1 &1684393452
 GameObject:
   m_ObjectHideFlags: 0

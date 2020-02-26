@@ -19,6 +19,9 @@ TagManager:
   - E
   - Q
   - LightBlock
+  - VampireEnd
+  - TownEnd
+  - MiddleEnd
   layers:
   - Default
   - TransparentFX
