@@ -572,11 +572,9 @@ GameObject:
   - component: {fileID: 84777846}
   - component: {fileID: 84777848}
   - component: {fileID: 84777847}
-  - component: {fileID: 84777851}
-  - component: {fileID: 84777850}
   - component: {fileID: 84777849}
   m_Layer: 0
-  m_Name: Room 3 Barricade
+  m_Name: Barricade
   m_TagString: Barricade
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -658,7 +656,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.11302745, y: -1.3187423}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -669,7 +667,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.33, y: 5.91}
+  m_Size: {x: 6.3096466, y: 8.547485}
   m_EdgeRadius: 0
 --- !u!114 &84777847
 MonoBehaviour:
@@ -799,9 +797,9 @@ MonoBehaviour:
               m_Target: 1
               speed: 2
               m_Value: 1
-          eventObject: {fileID: 0}
-          eventScript: {fileID: 0}
-          eventMethod: 
+          eventObject: {fileID: 84777843}
+          eventScript: {fileID: 84777849}
+          eventMethod: BloodlustEnd
         responseText: Chicken
         triggerNextConversation: 0
       - outcomes:
@@ -813,45 +811,31 @@ MonoBehaviour:
               m_Target: 1
               speed: 2
               m_Value: 1
-          eventObject: {fileID: 0}
-          eventScript: {fileID: 0}
-          eventMethod: 
+          eventObject: {fileID: 84777843}
+          eventScript: {fileID: 84777849}
+          eventMethod: VampKillEnd
         responseText: Bee
         triggerNextConversation: 0
-      - outcomes:
-          setFlag: None
-          queueNextConversation: 0
-          triggerEvent:
-            toggleBool: 1
-            toggleAnim:
-              m_Target: 1
-              speed: 2
-              m_Value: 1
-          eventObject: {fileID: 0}
-          eventScript: {fileID: 0}
-          eventMethod: 
-        responseText: Creeper
-        triggerNextConversation: 0
       timerToggle:
-        toggleBool: 0
+        toggleBool: 1
         toggleAnim:
-          m_Target: 0
+          m_Target: 1
           speed: 2
-          m_Value: 0
-      timerValue: 0
+          m_Value: 1
+      timerValue: 30
       timerTriggerNextConversation: 0
       timerOutcomes:
-        setFlag: 
+        setFlag: None
         queueNextConversation: 0
         triggerEvent:
-          toggleBool: 0
+          toggleBool: 1
           toggleAnim:
-            m_Target: 0
+            m_Target: 1
             speed: 2
-            m_Value: 0
-        eventObject: {fileID: 0}
-        eventScript: {fileID: 0}
-        eventMethod: 
+            m_Value: 1
+        eventObject: {fileID: 84777843}
+        eventScript: {fileID: 84777849}
+        eventMethod: NeutralEnd
   playingDialogue: 0
   playingResponse: 0
   responseNumber: 0
@@ -877,31 +861,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 84777843}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cdef1e5c1c404a44abf998a32bbd78f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &84777850
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 84777843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 662c81db5e7487947bff9fc60a4ee0a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &84777851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 84777843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeb337ae116f9a54982bdd4b8e4e9b98, type: 3}
+  m_Script: {fileID: 11500000, guid: 8772a7a7ddf28e445bab82f00b12c3c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &110820427
