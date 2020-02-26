@@ -275,6 +275,7 @@ MonoBehaviour:
           m_Value: 1
       conversationName: Introduction
       requiredFlag: None
+      skipFlag: None
       hasAudio: 0
       statements:
       - animationSelection: 3
@@ -363,6 +364,26 @@ MonoBehaviour:
           eventMethod: 
         responseText: I don't have time for this. (Ignore Him)
         triggerNextConversation: 1
+      timerToggle:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      timerValue: 0
+      timerTriggerNextConversation: 0
+      timerOutcomes:
+        setFlag: 
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
     - showConversation:
         toggleBool: 1
         toggleAnim:
@@ -371,6 +392,7 @@ MonoBehaviour:
           m_Value: 1
       conversationName: Ignored
       requiredFlag: None
+      skipFlag: None
       hasAudio: 0
       statements:
       - animationSelection: 0
@@ -416,6 +438,26 @@ MonoBehaviour:
           eventMethod: 
         responseText: Response
         triggerNextConversation: 0
+      timerToggle:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      timerValue: 0
+      timerTriggerNextConversation: 0
+      timerOutcomes:
+        setFlag: 
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
     - showConversation:
         toggleBool: 1
         toggleAnim:
@@ -424,6 +466,7 @@ MonoBehaviour:
           m_Value: 1
       conversationName: Return to Brittney
       requiredFlag: None
+      skipFlag: None
       hasAudio: 0
       statements:
       - animationSelection: 0
@@ -469,9 +512,30 @@ MonoBehaviour:
           eventMethod: 
         responseText: Response
         triggerNextConversation: 0
+      timerToggle:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      timerValue: 0
+      timerTriggerNextConversation: 0
+      timerOutcomes:
+        setFlag: 
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
   playingDialogue: 0
   playingResponse: 0
   responseNumber: 0
+  timerEnded: 0
 --- !u!114 &32071582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -634,6 +698,7 @@ MonoBehaviour:
           m_Value: 0
       conversationName: Flavor Text
       requiredFlag: None
+      skipFlag: 
       hasAudio: 0
       statements:
       - animationSelection: 0
@@ -679,6 +744,26 @@ MonoBehaviour:
           eventMethod: 
         responseText: Response
         triggerNextConversation: 0
+      timerToggle:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      timerValue: 0
+      timerTriggerNextConversation: 0
+      timerOutcomes:
+        setFlag: 
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
     - showConversation:
         toggleBool: 1
         toggleAnim:
@@ -687,6 +772,7 @@ MonoBehaviour:
           m_Value: 1
       conversationName: End Screens
       requiredFlag: Ending
+      skipFlag: None
       hasAudio: 0
       statements: []
       closingAnimation: 0
@@ -751,9 +837,30 @@ MonoBehaviour:
           eventMethod: 
         responseText: Creeper
         triggerNextConversation: 0
+      timerToggle:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      timerValue: 0
+      timerTriggerNextConversation: 0
+      timerOutcomes:
+        setFlag: None
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
   playingDialogue: 0
   playingResponse: 0
   responseNumber: 0
+  timerEnded: 0
 --- !u!114 &84777848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1123,13 +1230,14 @@ MonoBehaviour:
     characterName: Player
     conversations:
     - showConversation:
-        toggleBool: 0
+        toggleBool: 1
         toggleAnim:
-          m_Target: 0
+          m_Target: 1
           speed: 2
-          m_Value: 0
+          m_Value: 1
       conversationName: Wakeup
       requiredFlag: None
+      skipFlag: None
       hasAudio: 0
       statements:
       - animationSelection: 0
@@ -1184,9 +1292,30 @@ MonoBehaviour:
           eventMethod: 
         responseText: Response
         triggerNextConversation: 0
+      timerToggle:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      timerValue: 0
+      timerTriggerNextConversation: 0
+      timerOutcomes:
+        setFlag: 
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
   playingDialogue: 0
   playingResponse: 0
   responseNumber: 0
+  timerEnded: 0
 --- !u!1 &222713842
 GameObject:
   m_ObjectHideFlags: 0
@@ -1929,6 +2058,7 @@ MonoBehaviour:
           m_Value: 1
       conversationName: Flavor Text
       requiredFlag: None
+      skipFlag: None
       hasAudio: 0
       statements:
       - animationSelection: 0
@@ -1974,9 +2104,30 @@ MonoBehaviour:
           eventMethod: 
         responseText: Response
         triggerNextConversation: 0
+      timerToggle:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      timerValue: 0
+      timerTriggerNextConversation: 0
+      timerOutcomes:
+        setFlag: 
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
   playingDialogue: 0
   playingResponse: 0
   responseNumber: 0
+  timerEnded: 0
 --- !u!114 &613011975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3285,6 +3436,7 @@ MonoBehaviour:
           m_Value: 1
       conversationName: Pre-Barricade
       requiredFlag: None
+      skipFlag: Barricade
       hasAudio: 0
       statements:
       - animationSelection: 0
@@ -3299,7 +3451,7 @@ MonoBehaviour:
       closingAnimation: 0
       outcomes:
         setFlag: None
-        queueNextConversation: 1
+        queueNextConversation: 0
         triggerEvent:
           toggleBool: 0
           toggleAnim:
@@ -3330,6 +3482,26 @@ MonoBehaviour:
           eventMethod: 
         responseText: Response
         triggerNextConversation: 0
+      timerToggle:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      timerValue: 0
+      timerTriggerNextConversation: 0
+      timerOutcomes:
+        setFlag: 
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
     - showConversation:
         toggleBool: 1
         toggleAnim:
@@ -3338,6 +3510,7 @@ MonoBehaviour:
           m_Value: 1
       conversationName: Key Pickup
       requiredFlag: Barricade
+      skipFlag: None
       hasAudio: 1
       statements:
       - animationSelection: 0
@@ -3383,9 +3556,30 @@ MonoBehaviour:
           eventMethod: 
         responseText: Response
         triggerNextConversation: 0
+      timerToggle:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      timerValue: 0
+      timerTriggerNextConversation: 0
+      timerOutcomes:
+        setFlag: 
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
   playingDialogue: 0
   playingResponse: 0
   responseNumber: 0
+  timerEnded: 0
 --- !u!1 &1444528257
 GameObject:
   m_ObjectHideFlags: 0
