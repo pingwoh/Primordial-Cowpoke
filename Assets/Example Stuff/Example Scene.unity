@@ -723,6 +723,26 @@ MonoBehaviour:
           eventMethod: 
         responseText: Queue Next Convo
         triggerNextConversation: 0
+      timerToggle:
+        toggleBool: 1
+        toggleAnim:
+          m_Target: 1
+          speed: 2
+          m_Value: 1
+      timerValue: 2
+      timerTriggerNextConversation: 0
+      timerOutcomes:
+        setFlag: NextConvo
+        queueNextConversation: 1
+        triggerEvent:
+          toggleBool: 1
+          toggleAnim:
+            m_Target: 1
+            speed: 2
+            m_Value: 1
+        eventObject: {fileID: 1148890336}
+        eventScript: {fileID: 1148890339}
+        eventMethod: MakeSpriteRed
     - showConversation:
         toggleBool: 1
         toggleAnim:
@@ -776,6 +796,26 @@ MonoBehaviour:
           eventMethod: 
         responseText: Response
         triggerNextConversation: 0
+      timerToggle:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      timerValue: 0
+      timerTriggerNextConversation: 0
+      timerOutcomes:
+        setFlag: 
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
     - showConversation:
         toggleBool: 1
         toggleAnim:
@@ -829,6 +869,26 @@ MonoBehaviour:
           eventMethod: 
         responseText: Response
         triggerNextConversation: 0
+      timerToggle:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      timerValue: 0
+      timerTriggerNextConversation: 0
+      timerOutcomes:
+        setFlag: 
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
     - showConversation:
         toggleBool: 1
         toggleAnim:
@@ -882,9 +942,30 @@ MonoBehaviour:
           eventMethod: 
         responseText: Response
         triggerNextConversation: 0
+      timerToggle:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      timerValue: 0
+      timerTriggerNextConversation: 0
+      timerOutcomes:
+        setFlag: 
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
   playingDialogue: 0
   playingResponse: 0
   responseNumber: 0
+  timerEnded: 0
 --- !u!95 &418716062
 Animator:
   serializedVersion: 3

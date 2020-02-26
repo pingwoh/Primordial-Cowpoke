@@ -363,6 +363,25 @@ MonoBehaviour:
           eventMethod: 
         responseText: I don't have time for this. (Ignore Him)
         triggerNextConversation: 1
+      timerToggle:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      timerValue: 0
+      timerOutcomes:
+        setFlag: 
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
     - showConversation:
         toggleBool: 1
         toggleAnim:
@@ -416,6 +435,25 @@ MonoBehaviour:
           eventMethod: 
         responseText: Response
         triggerNextConversation: 0
+      timerToggle:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      timerValue: 0
+      timerOutcomes:
+        setFlag: 
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
     - showConversation:
         toggleBool: 1
         toggleAnim:
@@ -469,6 +507,25 @@ MonoBehaviour:
           eventMethod: 
         responseText: Response
         triggerNextConversation: 0
+      timerToggle:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      timerValue: 0
+      timerOutcomes:
+        setFlag: None
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
   playingDialogue: 0
   playingResponse: 0
   responseNumber: 0
@@ -676,6 +733,25 @@ MonoBehaviour:
           eventMethod: 
         responseText: Response
         triggerNextConversation: 0
+      timerToggle:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      timerValue: 0
+      timerOutcomes:
+        setFlag: 
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
   playingDialogue: 0
   playingResponse: 0
   responseNumber: 0
@@ -1072,6 +1148,25 @@ MonoBehaviour:
           eventMethod: 
         responseText: Response
         triggerNextConversation: 0
+      timerToggle:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      timerValue: 0
+      timerOutcomes:
+        setFlag: 
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
   playingDialogue: 0
   playingResponse: 0
   responseNumber: 0
@@ -1862,6 +1957,25 @@ MonoBehaviour:
           eventMethod: 
         responseText: Response
         triggerNextConversation: 0
+      timerToggle:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      timerValue: 0
+      timerOutcomes:
+        setFlag: 
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
   playingDialogue: 0
   playingResponse: 0
   responseNumber: 0
@@ -3109,6 +3223,25 @@ MonoBehaviour:
           eventMethod: 
         responseText: Response
         triggerNextConversation: 0
+      timerToggle:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      timerValue: 0
+      timerOutcomes:
+        setFlag: 
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
     - showConversation:
         toggleBool: 1
         toggleAnim:
@@ -3162,6 +3295,25 @@ MonoBehaviour:
           eventMethod: 
         responseText: Response
         triggerNextConversation: 0
+      timerToggle:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      timerValue: 0
+      timerOutcomes:
+        setFlag: 
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
   playingDialogue: 0
   playingResponse: 0
   responseNumber: 0
