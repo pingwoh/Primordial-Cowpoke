@@ -12,6 +12,10 @@ public class DialogueFlagDatabase
             true
         },
         {
+            "Barricade",
+            false
+        },
+        {
             "Red",
             false
         },

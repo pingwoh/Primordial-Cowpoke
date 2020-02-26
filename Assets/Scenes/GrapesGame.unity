@@ -219,7 +219,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 32071576}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.324738, y: -5.3920712, z: 0}
+  m_LocalPosition: {x: -5.02, y: -5.57, z: 0}
   m_LocalScale: {x: 0.622641, y: 0.622641, z: 0.622641}
   m_Children: []
   m_Father: {fileID: 1501031082}
@@ -238,7 +238,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.53, y: -0.74261665}
+  m_Offset: {x: 2.33318, y: -0.74261665}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -249,7 +249,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 9.89, y: 11.275234}
+  m_Size: {x: 11.49636, y: 11.275234}
   m_EdgeRadius: 0
 --- !u!114 &32071581
 MonoBehaviour:
@@ -264,8 +264,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    customNameToggle: 0
-    characterName: Vamp
+    customNameToggle: 1
+    characterName: Brittney
     conversations:
     - showConversation:
         toggleBool: 1
@@ -385,6 +385,59 @@ MonoBehaviour:
       closingAnimation: 0
       outcomes:
         setFlag: None
+        queueNextConversation: 1
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
+      hasResponse:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      responses:
+      - outcomes:
+          setFlag: None
+          queueNextConversation: 0
+          triggerEvent:
+            toggleBool: 0
+            toggleAnim:
+              m_Target: 0
+              speed: 2
+              m_Value: 0
+          eventObject: {fileID: 0}
+          eventScript: {fileID: 0}
+          eventMethod: 
+        responseText: Response
+        triggerNextConversation: 0
+    - showConversation:
+        toggleBool: 1
+        toggleAnim:
+          m_Target: 1
+          speed: 2
+          m_Value: 1
+      conversationName: Return to Brittney
+      requiredFlag: None
+      hasAudio: 0
+      statements:
+      - animationSelection: 0
+        hasCustomAudio: 0
+        audioProperties:
+          name: Nothing
+          clip: {fileID: 0}
+          volume: 1
+          loop: 0
+          source: {fileID: 0}
+        statementText: See! I knew you would come crawling back.
+      closingAnimation: 0
+      outcomes:
+        setFlag: None
         queueNextConversation: 0
         triggerEvent:
           toggleBool: 0
@@ -431,6 +484,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54807b4655266b64789e9a0e172ea255, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Vampire: {fileID: 32071576}
 --- !u!114 &32071583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -443,6 +497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d30fd1adb23d3c48b1283604f84f83b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dead: 0
 --- !u!1 &84777843
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,6 +509,8 @@ GameObject:
   - component: {fileID: 84777845}
   - component: {fileID: 84777844}
   - component: {fileID: 84777846}
+  - component: {fileID: 84777848}
+  - component: {fileID: 84777847}
   m_Layer: 0
   m_Name: Room 3 Barricade
   m_TagString: Barricade
@@ -550,6 +607,90 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.33, y: 5.91}
   m_EdgeRadius: 0
+--- !u!114 &84777847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84777843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c492630e16732e541885a215e500b891, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+    customNameToggle: 1
+    characterName: 
+    conversations:
+    - showConversation:
+        toggleBool: 1
+        toggleAnim:
+          m_Target: 1
+          speed: 2
+          m_Value: 1
+      conversationName: Flavor Text
+      requiredFlag: None
+      hasAudio: 0
+      statements:
+      - animationSelection: 0
+        hasCustomAudio: 0
+        audioProperties:
+          name: Nothing
+          clip: {fileID: 0}
+          volume: 1
+          loop: 0
+          source: {fileID: 0}
+        statementText: It is locked.
+      closingAnimation: 0
+      outcomes:
+        setFlag: Barricade
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
+      hasResponse:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      responses:
+      - outcomes:
+          setFlag: None
+          queueNextConversation: 0
+          triggerEvent:
+            toggleBool: 0
+            toggleAnim:
+              m_Target: 0
+              speed: 2
+              m_Value: 0
+          eventObject: {fileID: 0}
+          eventScript: {fileID: 0}
+          eventMethod: 
+        responseText: Response
+        triggerNextConversation: 0
+  playingDialogue: 0
+  playingResponse: 0
+  responseNumber: 0
+--- !u!114 &84777848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84777843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a17ef8a39d0e37646b4d31d89b395d62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &110820427
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,7 +801,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.67105293, y: 2.64225}
+  m_Offset: {x: -1.5998516, y: 2.64225}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -671,7 +812,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.3421059, y: 33.965446}
+  m_Size: {x: 6.883915, y: 33.965446}
   m_EdgeRadius: 0
 --- !u!1 &214195921
 GameObject:
@@ -687,6 +828,8 @@ GameObject:
   - component: {fileID: 214195924}
   - component: {fileID: 214195925}
   - component: {fileID: 214195926}
+  - component: {fileID: 214195929}
+  - component: {fileID: 214195928}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -838,6 +981,100 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &214195928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214195921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ef58582de1d2ce4bb35f5b948d251b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcDialogue: {fileID: 214195929}
+--- !u!114 &214195929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214195921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c492630e16732e541885a215e500b891, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+    customNameToggle: 0
+    characterName: Player
+    conversations:
+    - showConversation:
+        toggleBool: 1
+        toggleAnim:
+          m_Target: 1
+          speed: 2
+          m_Value: 1
+      conversationName: Wakeup
+      requiredFlag: None
+      hasAudio: 0
+      statements:
+      - animationSelection: 0
+        hasCustomAudio: 0
+        audioProperties:
+          name: Nothing
+          clip: {fileID: 0}
+          volume: 1
+          loop: 0
+          source: {fileID: 0}
+        statementText: '... What happened?'
+      - animationSelection: 0
+        hasCustomAudio: 0
+        audioProperties:
+          name: Nothing
+          clip: {fileID: 0}
+          volume: 1
+          loop: 0
+          source: {fileID: 0}
+        statementText: I remember coming in here to... clear out the vampires...
+      closingAnimation: 0
+      outcomes:
+        setFlag: None
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
+      hasResponse:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      responses:
+      - outcomes:
+          setFlag: None
+          queueNextConversation: 0
+          triggerEvent:
+            toggleBool: 0
+            toggleAnim:
+              m_Target: 0
+              speed: 2
+              m_Value: 0
+          eventObject: {fileID: 0}
+          eventScript: {fileID: 0}
+          eventMethod: 
+        responseText: Response
+        triggerNextConversation: 0
+  playingDialogue: 0
+  playingResponse: 0
+  responseNumber: 0
 --- !u!1 &222713842
 GameObject:
   m_ObjectHideFlags: 0
@@ -1146,7 +1383,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.29087257, y: 2.64225}
+  m_Offset: {x: 0.9779434, y: 2.64225}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1157,7 +1394,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.1024666, y: 33.965446}
+  m_Size: {x: 5.850769, y: 33.965446}
   m_EdgeRadius: 0
 --- !u!4 &361462048
 Transform:
@@ -1483,6 +1720,9 @@ GameObject:
   m_Component:
   - component: {fileID: 613011973}
   - component: {fileID: 613011972}
+  - component: {fileID: 613011976}
+  - component: {fileID: 613011975}
+  - component: {fileID: 613011974}
   m_Layer: 0
   m_Name: Sad Cowpoke
   m_TagString: Untagged
@@ -1553,6 +1793,116 @@ Transform:
   m_Father: {fileID: 1501031082}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &613011974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613011971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c492630e16732e541885a215e500b891, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+    customNameToggle: 1
+    characterName: 
+    conversations:
+    - showConversation:
+        toggleBool: 1
+        toggleAnim:
+          m_Target: 1
+          speed: 2
+          m_Value: 1
+      conversationName: Flavor Text
+      requiredFlag: None
+      hasAudio: 0
+      statements:
+      - animationSelection: 0
+        hasCustomAudio: 0
+        audioProperties:
+          name: Nothing
+          clip: {fileID: 0}
+          volume: 1
+          loop: 0
+          source: {fileID: 0}
+        statementText: Her blood has been drained.
+      closingAnimation: 0
+      outcomes:
+        setFlag: None
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
+      hasResponse:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      responses:
+      - outcomes:
+          setFlag: None
+          queueNextConversation: 0
+          triggerEvent:
+            toggleBool: 0
+            toggleAnim:
+              m_Target: 0
+              speed: 2
+              m_Value: 0
+          eventObject: {fileID: 0}
+          eventScript: {fileID: 0}
+          eventMethod: 
+        responseText: Response
+        triggerNextConversation: 0
+  playingDialogue: 0
+  playingResponse: 0
+  responseNumber: 0
+--- !u!114 &613011975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613011971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db2c18d3a7d53114e87c6af0b91cc393, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!61 &613011976
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613011971}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 11.96, y: 2.78}
+    newSize: {x: 11.96, y: 2.78}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 11.96, y: 2.78}
+  m_EdgeRadius: 0
 --- !u!1 &668039099
 GameObject:
   m_ObjectHideFlags: 0
@@ -2580,6 +2930,8 @@ GameObject:
   - component: {fileID: 1412095964}
   - component: {fileID: 1412095963}
   - component: {fileID: 1412095965}
+  - component: {fileID: 1412095966}
+  - component: {fileID: 1412095967}
   m_Layer: 0
   m_Name: Sad Sheriff
   m_TagString: Sheriff
@@ -2676,6 +3028,143 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 11.52, y: 3.83}
   m_EdgeRadius: 0
+--- !u!114 &1412095966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412095962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1178ddf516b4fa448d521ae5d37c050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1412095967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412095962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c492630e16732e541885a215e500b891, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+    customNameToggle: 1
+    characterName: 
+    conversations:
+    - showConversation:
+        toggleBool: 1
+        toggleAnim:
+          m_Target: 1
+          speed: 2
+          m_Value: 1
+      conversationName: Pre-Barricade
+      requiredFlag: None
+      hasAudio: 0
+      statements:
+      - animationSelection: 0
+        hasCustomAudio: 0
+        audioProperties:
+          name: Nothing
+          clip: {fileID: 0}
+          volume: 1
+          loop: 0
+          source: {fileID: 0}
+        statementText: His badge reads "Sheriff."
+      closingAnimation: 0
+      outcomes:
+        setFlag: None
+        queueNextConversation: 1
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
+      hasResponse:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      responses:
+      - outcomes:
+          setFlag: None
+          queueNextConversation: 0
+          triggerEvent:
+            toggleBool: 0
+            toggleAnim:
+              m_Target: 0
+              speed: 2
+              m_Value: 0
+          eventObject: {fileID: 0}
+          eventScript: {fileID: 0}
+          eventMethod: 
+        responseText: Response
+        triggerNextConversation: 0
+    - showConversation:
+        toggleBool: 1
+        toggleAnim:
+          m_Target: 1
+          speed: 2
+          m_Value: 1
+      conversationName: Key Pickup
+      requiredFlag: Barricade
+      hasAudio: 1
+      statements:
+      - animationSelection: 0
+        hasCustomAudio: 1
+        audioProperties:
+          name: Nothing
+          clip: {fileID: 8300000, guid: f766bf9f16d6ca1498ed23bf0b81f008, type: 3}
+          volume: 1
+          loop: 0
+          source: {fileID: 0}
+        statementText: He had a key.
+      closingAnimation: 0
+      outcomes:
+        setFlag: None
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
+      hasResponse:
+        toggleBool: 0
+        toggleAnim:
+          m_Target: 0
+          speed: 2
+          m_Value: 0
+      responses:
+      - outcomes:
+          setFlag: None
+          queueNextConversation: 0
+          triggerEvent:
+            toggleBool: 0
+            toggleAnim:
+              m_Target: 0
+              speed: 2
+              m_Value: 0
+          eventObject: {fileID: 0}
+          eventScript: {fileID: 0}
+          eventMethod: 
+        responseText: Response
+        triggerNextConversation: 0
+  playingDialogue: 0
+  playingResponse: 0
+  responseNumber: 0
 --- !u!1 &1444528257
 GameObject:
   m_ObjectHideFlags: 0
@@ -3960,7 +4449,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.67105293, y: 2.64225}
+  m_Offset: {x: 0.4302826, y: 2.64225}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -3971,7 +4460,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.3421059, y: 33.965446}
+  m_Size: {x: 6.5383606, y: 33.965446}
   m_EdgeRadius: 0
 --- !u!4 &1888877907
 Transform:

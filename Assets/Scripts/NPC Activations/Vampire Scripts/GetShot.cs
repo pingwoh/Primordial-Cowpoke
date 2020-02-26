@@ -9,10 +9,13 @@ public class GetShot : MonoBehaviour
 
     public AudioManager audioManager { get { return FindObjectOfType<AudioManager>(); } }
 
+    public bool dead = false;
+
     public void TriggerShot()
     {
         StartCoroutine(ShotTimer());
         audioManager.PlayAudio("GUNSHOT");
+        dead = true;
     }
     IEnumerator ShotTimer()
     {

@@ -35,20 +35,19 @@ public class CowpokeController : MonoBehaviour
 
     private bool firstPress = true;
     public bool canMove = true;
+    private bool barricadeClick;
 
     private void Awake()
     {
         playerAnimator.SetTrigger("Asleep");
     }
-
-    // Start is called before the first frame update
     void Start()
     {
         groundCheck = true;
         hasKey = false;
+        barricadeClick = false;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (firstPress)
@@ -203,10 +202,17 @@ public class CowpokeController : MonoBehaviour
         }
         if (other.CompareTag("Sheriff"))
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && barricadeClick == true)
             {
                 hasKey = true;
-                Instantiate(Resources.Load("KeySound"), other.transform.position, Quaternion.identity);
+                //Instantiate(Resources.Load("KeySound"), other.transform.position, Quaternion.identity);
+            }
+        }
+        if (other.CompareTag("Barricade"))
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                barricadeClick = true;
             }
         }
 
