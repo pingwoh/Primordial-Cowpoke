@@ -247,7 +247,7 @@ public class CowpokeController : MonoBehaviour
         }
         if (other.CompareTag("Barricade") && Input.GetKeyDown(KeyCode.E) && hasKey == true)
         {
-            Destroy(other.gameObject);
+            GameObject.FindGameObjectWithTag("Barricade").GetComponent<SpriteRenderer>().enabled = false;
             //fadeAnimator.gameObject.SetActive(true);
         }
     }
