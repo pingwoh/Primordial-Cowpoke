@@ -14,8 +14,8 @@ public class DialogueEditor : Editor
     NPCDialogue NPCDialogueScript;
     Dialogue dialogue;
 
-    static bool useCustomName;
     static string characterName;
+    static bool useCustomName;
 
     static string[] animationNames;
     static Dictionary<string, bool> dialogueFlags = DialogueFlagDatabase.dialogueFlags;
@@ -191,26 +191,6 @@ public class DialogueEditor : Editor
                             responseText = "Response",
                             triggerNextConversation = false,
                         }
-                    },
-                    timerToggle = new DisplayToggle
-                    {
-                        toggleBool = false,
-                        toggleAnim = new AnimBool(false),
-                    },
-                    timerValue = 0f,
-                    timerTriggerNextConversation = false,
-                    timerOutcomes = new Outcomes
-                    {
-                        setFlag = "None",
-                        queueNextConversation = false,
-                        triggerEvent = new DisplayToggle
-                        {
-                            toggleBool = false,
-                            toggleAnim = new AnimBool(false),
-                        },
-                        eventObject = null,
-                        eventScript = null,
-                        eventMethod = null,
                     },
                 }
             );
@@ -460,46 +440,6 @@ public class DialogueEditor : Editor
                 }
                 EditorGUILayout.EndFadeGroup();
                 //runs if dialogue isn't triggering an event
-                EditorGUILayout.LabelField("\n");
-                conversation.timerToggle.toggleBool = EditorGUILayout.Toggle("Use Timer?", conversation.timerToggle.toggleBool);
-                conversation.timerToggle.toggleAnim.target = conversation.timerToggle.toggleBool;
-
-                if (EditorGUILayout.BeginFadeGroup(conversation.timerToggle.toggleAnim.faded))
-                {
-                    conversation.timerValue = EditorGUILayout.FloatField("Time Limit:", conversation.timerValue);
-                    EditorGUILayout.LabelField("\n");
-                    EditorGUILayout.BeginHorizontal();
-                    EditorGUILayout.LabelField("Set Player Dialogue Flag:");
-                    conversation.timerOutcomes.setFlag = checkFlags(conversation.timerOutcomes.setFlag);
-                    conversation.timerOutcomes.setFlag = flagNames[EditorGUILayout.Popup(System.Array.IndexOf(flagNames, conversation.timerOutcomes.setFlag), flagNames)];
-                    EditorGUILayout.EndHorizontal();
-                    conversation.timerOutcomes.queueNextConversation = EditorGUILayout.Toggle("Queue Next Conversation?", conversation.timerOutcomes.queueNextConversation);
-
-
-
-                    conversation.timerOutcomes.triggerEvent.toggleBool = EditorGUILayout.Toggle("Trigger Event?", conversation.timerOutcomes.triggerEvent.toggleBool);
-                    conversation.timerOutcomes.triggerEvent.toggleAnim.target = conversation.timerOutcomes.triggerEvent.toggleBool;
-
-                    if (EditorGUILayout.BeginFadeGroup(conversation.timerOutcomes.triggerEvent.toggleAnim.faded))
-                    {
-                        EditorGUI.indentLevel++;
-
-                        EventTriggerSelection(conversation.timerOutcomes);
-                    }
-                    EditorGUILayout.EndFadeGroup();
-                }
-                EditorGUILayout.EndFadeGroup();
-
-                EditorGUI.indentLevel = 0;
-                if (conversation.timerOutcomes.triggerEvent.toggleBool)
-                {
-                    EditorGUILayout.LabelField("Trigger Next Conversation?", "Can't Trigger Next Conversation if Triggering Event!", r);
-                }
-                else
-                {
-                    conversation.timerTriggerNextConversation = EditorGUILayout.Toggle("Trigger Next Conversation?", conversation.timerTriggerNextConversation);
-                }
-
             }
 
             EditorGUI.indentLevel = 0;
