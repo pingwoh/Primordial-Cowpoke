@@ -18,6 +18,7 @@ TagManager:
   - Sizzle
   - E
   - Q
+  - LightBlock
   layers:
   - Default
   - TransparentFX

@@ -31,6 +31,10 @@ public class DialogueFlagDatabase
             "Placeholder",
             false
         },
+        {
+            "Ending",
+            false
+        },
     };
 
 }

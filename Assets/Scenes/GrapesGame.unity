@@ -511,6 +511,9 @@ GameObject:
   - component: {fileID: 84777846}
   - component: {fileID: 84777848}
   - component: {fileID: 84777847}
+  - component: {fileID: 84777851}
+  - component: {fileID: 84777850}
+  - component: {fileID: 84777849}
   m_Layer: 0
   m_Name: Room 3 Barricade
   m_TagString: Barricade
@@ -624,11 +627,11 @@ MonoBehaviour:
     characterName: 
     conversations:
     - showConversation:
-        toggleBool: 1
+        toggleBool: 0
         toggleAnim:
-          m_Target: 1
+          m_Target: 0
           speed: 2
-          m_Value: 1
+          m_Value: 0
       conversationName: Flavor Text
       requiredFlag: None
       hasAudio: 0
@@ -645,7 +648,7 @@ MonoBehaviour:
       closingAnimation: 0
       outcomes:
         setFlag: Barricade
-        queueNextConversation: 0
+        queueNextConversation: 1
         triggerEvent:
           toggleBool: 0
           toggleAnim:
@@ -676,6 +679,78 @@ MonoBehaviour:
           eventMethod: 
         responseText: Response
         triggerNextConversation: 0
+    - showConversation:
+        toggleBool: 1
+        toggleAnim:
+          m_Target: 1
+          speed: 2
+          m_Value: 1
+      conversationName: End Screens
+      requiredFlag: Ending
+      hasAudio: 0
+      statements: []
+      closingAnimation: 0
+      outcomes:
+        setFlag: None
+        queueNextConversation: 0
+        triggerEvent:
+          toggleBool: 0
+          toggleAnim:
+            m_Target: 0
+            speed: 2
+            m_Value: 0
+        eventObject: {fileID: 0}
+        eventScript: {fileID: 0}
+        eventMethod: 
+      hasResponse:
+        toggleBool: 1
+        toggleAnim:
+          m_Target: 1
+          speed: 2
+          m_Value: 1
+      responses:
+      - outcomes:
+          setFlag: None
+          queueNextConversation: 0
+          triggerEvent:
+            toggleBool: 1
+            toggleAnim:
+              m_Target: 1
+              speed: 2
+              m_Value: 1
+          eventObject: {fileID: 0}
+          eventScript: {fileID: 0}
+          eventMethod: 
+        responseText: Chicken
+        triggerNextConversation: 0
+      - outcomes:
+          setFlag: None
+          queueNextConversation: 0
+          triggerEvent:
+            toggleBool: 1
+            toggleAnim:
+              m_Target: 1
+              speed: 2
+              m_Value: 1
+          eventObject: {fileID: 0}
+          eventScript: {fileID: 0}
+          eventMethod: 
+        responseText: Bee
+        triggerNextConversation: 0
+      - outcomes:
+          setFlag: None
+          queueNextConversation: 0
+          triggerEvent:
+            toggleBool: 1
+            toggleAnim:
+              m_Target: 1
+              speed: 2
+              m_Value: 1
+          eventObject: {fileID: 0}
+          eventScript: {fileID: 0}
+          eventMethod: 
+        responseText: Creeper
+        triggerNextConversation: 0
   playingDialogue: 0
   playingResponse: 0
   responseNumber: 0
@@ -689,6 +764,42 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a17ef8a39d0e37646b4d31d89b395d62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &84777849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84777843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cdef1e5c1c404a44abf998a32bbd78f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &84777850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84777843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 662c81db5e7487947bff9fc60a4ee0a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &84777851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84777843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb337ae116f9a54982bdd4b8e4e9b98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &110820427
@@ -916,6 +1027,7 @@ MonoBehaviour:
   Barricade: {fileID: 84777843}
   Sheriff: {fileID: 1412095962}
   Light: {fileID: 2084829341}
+  OuchLights: []
   fadeAnimator: {fileID: 1684393452}
   levelOneLeave: {fileID: 598555822}
   levelOneReturn: {fileID: 361462046}
@@ -1011,11 +1123,11 @@ MonoBehaviour:
     characterName: Player
     conversations:
     - showConversation:
-        toggleBool: 1
+        toggleBool: 0
         toggleAnim:
-          m_Target: 1
+          m_Target: 0
           speed: 2
-          m_Value: 1
+          m_Value: 0
       conversationName: Wakeup
       requiredFlag: None
       hasAudio: 0
@@ -2177,6 +2289,114 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 56.73493, y: 3.7946587}
   m_EdgeRadius: 0
+--- !u!1 &803021225
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 803021226}
+  - component: {fileID: 803021228}
+  - component: {fileID: 803021227}
+  m_Layer: 0
+  m_Name: Light (1)
+  m_TagString: Light
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &803021226
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803021225}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -77.2, y: -1.02, z: 0}
+  m_LocalScale: {x: 0.31504974, y: 1.5196974, z: 0.86910266}
+  m_Children:
+  - {fileID: 2129736339}
+  m_Father: {fileID: 1153974435}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &803021227
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803021225}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.055754185, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 10.26, y: 15.79}
+    newSize: {x: 10.26, y: 15.79}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 9.47944, y: 15.79}
+  m_EdgeRadius: 0
+--- !u!212 &803021228
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803021225}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 5
+  m_Sprite: {fileID: 21300000, guid: c0f7d7bea2591b84793d2ead8c78b43f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.44705883}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 10.26, y: 15.79}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &978063039
 GameObject:
   m_ObjectHideFlags: 0
@@ -2701,6 +2921,7 @@ Transform:
   - {fileID: 1716316417}
   - {fileID: 1120669396}
   - {fileID: 1007685463}
+  - {fileID: 803021226}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3130,7 +3351,7 @@ MonoBehaviour:
         statementText: He had a key.
       closingAnimation: 0
       outcomes:
-        setFlag: None
+        setFlag: Ending
         queueNextConversation: 0
         triggerEvent:
           toggleBool: 0
@@ -3989,7 +4210,7 @@ GameObject:
   - component: {fileID: 1684393455}
   - component: {fileID: 1684393454}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: FadePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4641,7 +4862,7 @@ GameObject:
   - component: {fileID: 2084829343}
   m_Layer: 0
   m_Name: LIGHTLIGHT
-  m_TagString: Untagged
+  m_TagString: LightBlock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4763,3 +4984,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2106097369}
   m_CullTransparentMesh: 0
+--- !u!1 &2129736338
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2129736339}
+  - component: {fileID: 2129736340}
+  m_Layer: 0
+  m_Name: LIGHTLIGHT
+  m_TagString: LightBlock
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2129736339
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2129736338}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 803021226}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &2129736340
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2129736338}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.12297547, y: 0.05715847}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 4.777298, y: 13.765453}
+  m_EdgeRadius: 0

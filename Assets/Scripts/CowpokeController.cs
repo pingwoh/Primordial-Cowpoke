@@ -12,6 +12,7 @@ public class CowpokeController : MonoBehaviour
     public GameObject Barricade;
     public GameObject Sheriff;
     public GameObject Light;
+    public GameObject[] OuchLights;
 
     public GameObject fadeAnimator;
 
@@ -46,6 +47,7 @@ public class CowpokeController : MonoBehaviour
         groundCheck = true;
         hasKey = false;
         barricadeClick = false;
+        OuchLights = GameObject.FindGameObjectsWithTag("LightBlock");
     }
 
     void FixedUpdate()
@@ -136,6 +138,7 @@ public class CowpokeController : MonoBehaviour
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         }*/
+
     }
     private IEnumerator WakeUp()
     {
@@ -193,11 +196,19 @@ public class CowpokeController : MonoBehaviour
         {
             if (playerAnimator.GetBool("Sunny") == true)
             {
-                Light.GetComponent<BoxCollider2D>().enabled = false;
+                //Light.GetComponent<BoxCollider2D>().enabled = false;
+                foreach (GameObject OuchLight in OuchLights)
+                {
+                    OuchLight.GetComponent<BoxCollider2D>().enabled = false;
+                }
             }
             else
             {
-                Light.GetComponent<BoxCollider2D>().enabled = true;
+                //Light.GetComponent<BoxCollider2D>().enabled = true;
+                foreach (GameObject OuchLight in OuchLights)
+                {
+                    OuchLight.GetComponent<BoxCollider2D>().enabled = true;
+                }
             }
         }
         if (other.CompareTag("Sheriff"))
@@ -237,7 +248,7 @@ public class CowpokeController : MonoBehaviour
         if (other.CompareTag("Barricade") && Input.GetKeyDown(KeyCode.E) && hasKey == true)
         {
             Destroy(other.gameObject);
-            fadeAnimator.gameObject.SetActive(true);
+            //fadeAnimator.gameObject.SetActive(true);
         }
     }
 }
