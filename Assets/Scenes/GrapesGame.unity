@@ -691,14 +691,14 @@ MonoBehaviour:
     characterName: 
     conversations:
     - showConversation:
-        toggleBool: 0
+        toggleBool: 1
         toggleAnim:
-          m_Target: 0
+          m_Target: 1
           speed: 2
-          m_Value: 0
+          m_Value: 1
       conversationName: Flavor Text
       requiredFlag: None
-      skipFlag: 
+      skipFlag: None
       hasAudio: 0
       statements:
       - animationSelection: 0
