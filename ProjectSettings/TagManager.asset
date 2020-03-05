@@ -22,7 +22,7 @@ TagManager:
   - VampireEnd
   - TownEnd
   - MiddleEnd
-  - BackgroundMusic
+  - EnemyBody
   layers:
   - Default
   - TransparentFX
@@ -32,8 +32,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Ground
+  - Enemy
   - 
   - 
   - 
